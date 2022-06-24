@@ -1,11 +1,78 @@
 /**
  * --------------------------------------------------------------------
- * SITE SEARCH
+ * SITE HEADER
  * --------------------------------------------------------------------
  */
 
 .search-bar__inner {
     display: none !important;
+}
+
+.nav-bar__linklist {
+    display: flex;
+}
+
+.nav-bar__item:last-child {
+    margin-right: 0;
+}
+
+.nav-bar__item:nth-last-child(2) {
+    margin-left: auto;
+}
+
+.nav-bar__link--active {
+    color: var(--link-color);
+}
+
+/**
+ * --------------------------------------------------------------------
+ * ANNOUNCEMENT BAR
+ * --------------------------------------------------------------------
+ */
+
+.announcement-bar__phone {
+  margin-right: 5px;
+}
+
+.announcement-bar__hours {
+  display: inline-block;
+  color: var(--header-light-text-color);
+  font-weight: 400;
+}
+
+.announcement-bar__hours-link {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 640px) {
+  .announcement-bar__content {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .announcement-bar__hours-message {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 641px) {
+  .announcement-bar__inner {
+    justify-content: space-between;
+  }
+ 
+  .announcement-bar__content {
+    display: block;
+    line-height: 1.2;
+  }
+
+  .announcement-bar__hours-link {
+    display: none;
+  }
+
+  .announcement-bar__button {
+    flex-shrink: 0;
+    align-self: stretch;
+  }
 }
 
 /**
@@ -138,6 +205,32 @@
  * --------------------------------------------------------------------
  */
 
+.card-stack .card {
+    margin-bottom: 0;
+}
+
+.card-stack .card:not(:last-child) {
+    border-bottom: none;
+}
+
+.card--highlight {
+    color: white;
+    background: #214784;
+    border: none;
+}
+
+.card--highlight .card__separator {
+    border-color: #4967a5;
+}
+
+.card--highlight .card__keyvalue-key {
+    color: var(--header-light-text-color);
+}
+
+.card__keyvalue-value {
+    margin-left: 3px;
+}
+
 .card__section--centered {
     margin-left: auto;
     margin-right: auto;
@@ -145,6 +238,16 @@
 
 .card__section--giga-narrow {
     max-width: 582px;
+}
+
+.card__section--meta {
+    font-size: calc(
+        var(--base-text-font-size) - (var(--default-text-font-size) - 13px)
+    );
+}
+
+.card__section--meta .card__separator {
+    margin: 14px 0;
 }
 
 /**
@@ -208,10 +311,89 @@
 
 /**
  * --------------------------------------------------------------------
+ * CONTACT PAGE
+ * --------------------------------------------------------------------
+ */
+
+.ls-contact-page-map [data-section-id='map'] {
+    margin: 28px 0;
+}
+
+@media screen and (min-width: 641px) {
+    .ls-contact-page-map [data-section-id='map'] {
+        margin: 35px 0;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .ls-contact-page-map .map {
+        height: 360px;
+    }
+}
+
+/**
+ * --------------------------------------------------------------------
+ * SITE FOOTER
+ * --------------------------------------------------------------------
+ */
+
+.footer__address {
+    font-style: normal;
+    margin: 0.7em 0;
+}
+
+.footer__background-image {
+    height: 100%;
+    min-height: 160px;
+    background-size: cover;
+    background-position: center;
+}
+
+@media screen and (max-width: 640px) {
+    .footer__block-item--image {
+        padding-top: 30px;
+        border-bottom: none;
+    }
+}
+
+@media screen and (min-width: 1000px) {
+    .footer__block-item--text {
+        flex: 2 1 355px;
+    }
+
+    .footer__block-item--contact {
+        flex-grow: 0;
+    }
+
+    .footer__block-item--image {
+        flex-basis: 300px;
+    }
+
+    .footer__block-item--links {
+        flex-grow: 0;
+    }
+
+    .footer__background-image {
+        min-height: 194px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .footer__block-item--image {
+        max-width: 360px;
+    }
+}
+
+/**
+ * --------------------------------------------------------------------
  * MISCELLANEOUS
  * --------------------------------------------------------------------
  */
 
 .grecaptcha-badge {
     visibility: hidden; // hide Google CAPTCHA badge
+}
+
+.text--nowrap {
+  white-space: nowrap;
 }
