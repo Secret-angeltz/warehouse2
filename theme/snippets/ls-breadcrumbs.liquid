@@ -1,0 +1,143 @@
+{%- liquid
+  assign breadcrumb_page_slugs = item.metafields.breadcrumbs.pages | split: '|'
+  assign breadcrumb_page_count = breadcrumb_page_slugs | size
+  assign breadcrumb_collection_slugs = item.metafields.breadcrumbs.collections | split: '|'
+  assign breadcrumb_collection_count = breadcrumb_collection_slugs | size
+  assign breadcrumbs_structured_data = ''
+-%}
+
+<nav aria-label="{{ 'general.breadcrumb.title' | t }}" class="breadcrumb">
+  <ol class="breadcrumb__list" role="list">
+    <li class="breadcrumb__item text--nowrap">
+      <a class="breadcrumb__link link" href="{{ routes.root_url }}">{{ 'general.breadcrumb.home' | t }}</a> {%- render 'icon', icon: 'arrow-right' -%}
+    </li>
+    {%- capture breadcrumb_structured_data -%}
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@id": "{{ shop.url }}",
+          "name": {{ 'general.breadcrumb.home' | t | json }}
+        } 
+      }
+    {%- endcapture -%}
+    {%- assign breadcrumbs_structured_data = breadcrumbs_structured_data | append: breadcrumb_structured_data | strip -%}
+    {%- if breadcrumb_page_count > 0 or breadcrumb_collection_count > 0 -%}
+      {%- for slug in breadcrumb_page_slugs -%}
+        {%- liquid
+          assign breadcrumb = pages[slug]
+          assign breadcrumb_label = breadcrumb.metafields.breadcrumbs.label | default: breadcrumb.title | strip 
+        -%}
+        <li class="breadcrumb__item text--nowrap">
+          <a class="breadcrumb__link link" href="{{ breadcrumb.url }}">{{ breadcrumb_label }}</a> {%- render 'icon', icon: 'arrow-right' -%}
+        </li>
+        {%- capture breadcrumb_structured_data -%}
+          ,{
+            "@type": "ListItem",
+            "position": {{ forloop.index | plus: 1 }},
+            "item": {
+              "@id": "{{ shop.url }}{{ breadcrumb.url }}",
+              "name": {{ breadcrumb_label | json }}
+            }
+          }
+        {%- endcapture -%}
+        {%- assign breadcrumbs_structured_data = breadcrumbs_structured_data | append: breadcrumb_structured_data | strip -%}
+      {%- endfor -%}
+    {%- endif -%}
+    {%- if breadcrumb_collection_count > 0 -%}
+      {%- for slug in breadcrumb_collection_slugs -%}
+        {%- liquid
+          assign breadcrumb = pages[slug]
+          assign breadcrumb_label = breadcrumb.metafields.breadcrumbs.label | default: breadcrumb.title | strip
+        -%}
+        <li class="breadcrumb__item text--nowrap">
+          <a class="breadcrumb__link link" href="{{ breadcrumb.url }}">{{ breadcrumb_label }}</a> {%- render 'icon', icon: 'arrow-right' -%}
+        </li>
+        {%- capture breadcrumb_structured_data -%}
+          ,{
+            "@type": "ListItem",
+            "position": {{ forloop.index | plus: 1 | plus: breadcrumb_page_count }},
+            "item": {
+              "@id": "{{ shop.url }}{{ breadcrumb.url }}",
+              "name": {{ breadcrumb_label | json }}
+            }
+          }
+        {%- endcapture -%}
+        {%- assign breadcrumbs_structured_data = breadcrumbs_structured_data | append: breadcrumb_structured_data | strip -%}
+      {%- endfor -%}
+    {%- endif -%}
+    {%- assign item_label = item.metafields.breadcrumbs.label | default: item.title | strip -%}
+    {%- if request.page_type == 'product' -%}
+
+      {%- comment -%}
+          Below is the collection breadcrumb that the product is assigned to.
+      {%- endcomment -%}
+      <li class="breadcrumb__item text--nowrap">
+        <a class="breadcrumb__link link" href="{{ item.url }}">{{ item_label }}</a> {%- render 'icon', icon: 'arrow-right' -%}
+      </li>
+      {%- capture breadcrumb_structured_data -%}
+        ,{
+          "@type": "ListItem",
+          "position": {{ 2 | plus: breadcrumb_page_count | plus: breadcrumb_collection_count }},
+          "item": {
+            "@id": "{{ shop.url }}{{ item.url }}",
+            "name": {{ item_label | json }}
+          }
+        }
+      {%- endcapture -%}
+      {%- assign breadcrumbs_structured_data = breadcrumbs_structured_data | append: breadcrumb_structured_data | strip -%}
+
+      {%- comment -%}
+          Below is the product breadcrumb.
+      {%- endcomment -%}
+      {%- liquid
+        assign product_variant = product.selected_or_first_available_variant
+        assign product_label = product.metafields.breadcrumbs.label | default: product_variant.sku | strip
+      -%}
+      <li class="breadcrumb__item text--nowrap">
+        <span class="breadcrumb__link">{{ product_label }}</span>
+      </li>
+      {%- capture breadcrumb_structured_data -%}
+        ,{
+          "@type": "ListItem",
+          "position": {{ 3 | plus: breadcrumb_page_count | plus: breadcrumb_collection_count }},
+          "item": {
+            "@id": "{{ shop.url }}{{ product.url }}",
+            "name": {{ product_label | json }}
+          }
+        }
+      {%- endcapture -%}
+      {%- assign breadcrumbs_structured_data = breadcrumbs_structured_data | append: breadcrumb_structured_data | strip -%}
+
+    {%- else -%}
+
+      <li class="breadcrumb__item text--nowrap">
+        <span class="breadcrumb__link">{{ item_label }}</span>
+      </li>
+      {%- capture breadcrumb_structured_data -%}
+        ,{
+          "@type": "ListItem",
+          "position": {{ 2 | plus: breadcrumb_page_count | plus: breadcrumb_collection_count }},
+          "item": {
+            "@id": "{{ shop.url }}{{ item.url }}",
+            "name": {{ item_label | json }}
+          }
+        }
+      {%- endcapture -%}
+      {%- assign breadcrumbs_structured_data = breadcrumbs_structured_data | append: breadcrumb_structured_data | strip -%}
+    {%- endif -%}
+  </ol>
+</nav>
+
+
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {{ breadcrumbs_structured_data }}
+    ]
+  }
+
+</script>

@@ -1,0 +1,70 @@
+<div class="layout__section layout__section--secondary">
+  <div class="card-stack card-stack--sticky hidden-pocket">
+    <div class="card">
+      <div class="card__section card__section--tight">
+        <div class="card__linklist">
+          <a href="{{ routes.account_url }}" class="card__linklist-item link{% if request.path == routes.account_url %} text--strong{% endif %}">{{ 'customer.general.my_account' | t }}</a>
+          <a href="{{ routes.account_addresses_url }}" class="card__linklist-item link{% if request.path == routes.account_addresses_url %} text--strong{% endif %}">{{ 'customer.general.addresses' | t }}</a>
+          <a href="{{ routes.account_logout_url }}" class="card__linklist-item link" data-no-instant>{{ 'customer.general.logout' | t }}</a>
+        </div>
+      </div>
+    </div>
+    {%- liquid
+      assign company_name = customer.metafields.sap.company_name
+      assign account_number = customer.metafields.sap.account_number
+      assign sales_employee = customer.metafields.sap.sales_employee
+      assign sales_employee_phone = customer.metafields.sap.sales_employee_phone
+      assign sales_employee_email = customer.metafields.sap.sales_employee_email
+    -%}
+    {%- capture sap_customer_information -%}
+      <div class="card card--highlight">
+        {%- if company_name != blank -%}
+          <div class="card__section card__section--tight card__section--meta">
+            <div class="card__linklist">
+              <span class="card__linklist-item"><span class="card__keyvalue-key">Company:</span> <span class="card__keyvalue-value">{{ company_name }}</span></span>
+              {%- if account_number != blank -%}
+                <span class="card__linklist-item"><span class="card__keyvalue-key">Account Number:</span> <span class="card__keyvalue-value">{{ account_number }}</span></span>
+              {%- endif -%}
+            </div>
+            {%- if sales_employee != blank -%}
+              <hr class="card__separator">
+              <div class="card__linklist">
+                <span class="card__linklist-item"><span class="card__keyvalue-key">Sales Rep:</span> <span class="card__keyvalue-value">{{ sales_employee }}</span></span>
+                <span class="card__linklist-item"><span class="card__keyvalue-key">Phone:</span> <span class="card__keyvalue-value"><a href="tel:{{ sales_employee_phone | remove: '-' }}">{{ sales_employee_phone }}</a></span></span>
+                <span class="card__linklist-item"><span class="card__keyvalue-key">Email:</span> <span class="card__keyvalue-value"><a href="mailto:{{ sales_employee_email }}">{{ sales_employee_email }}</a></span></span>
+              </div>
+            {%- endif -%}
+          </div>
+        {%- else -%}
+          <div class="card__section card__section--tight hidden-pocket">
+            {%- render 'ls-customer-profile-form', id: 'ls-customer-profile-sidebar' -%}
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endcapture -%}
+    {{ sap_customer_information }}
+  </div>
+
+  <div class="value-picker-wrapper hidden-lap-and-up">
+    <button class="value-picker-button value-picker-button--pill" aria-haspopup="true" aria-expanded="false" aria-controls="account-selector" data-action="open-value-picker">
+      {{- mobile_toggle_label | t -}} {%- render 'icon', icon: 'arrow-bottom' -%}
+    </button>
+
+    <div id="account-selector" class="value-picker" aria-hidden="true">
+      <div class="value-picker__inner">
+        <header class="value-picker__header">
+          <span class="value-picker__title text--strong">{{ 'customer.general.my_account' | t }}</span>
+          <button class="value-picker__close" data-action="close-value-picker" aria-controls="account-selector" aria-label="{{ 'general.accessibility.close' | t }}">{% render 'icon', icon: 'close' %}</button>
+        </header>
+
+        <div class="value-picker__choice-list">
+          <a href="{{ routes.account_url }}" class="value-picker__choice-item{% if request.path == routes.account_url %} is-selected{% endif %}">{{ 'customer.general.my_account' | t }} {% render 'icon', icon: 'check-2' %}</a>
+          <a href="{{ routes.account_addresses_url }}" class="value-picker__choice-item{% if request.path == routes.account_addresses_url %} is-selected{% endif %}">{{ 'customer.general.addresses' | t }} {% render 'icon', icon: 'check-2' %}</a>
+          <a href="{{ routes.account_logout_url }}" class="value-picker__choice-item" data-no-instant>{{ 'customer.general.logout' | t }} {% render 'icon', icon: 'check-2' %}</a>
+        </div>
+
+        {{ sap_customer_information }}
+      </div>
+    </div>
+  </div>
+</div>

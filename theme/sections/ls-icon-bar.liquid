@@ -1,0 +1,238 @@
+{%- if section.settings.show_icon_bar -%}
+  <section class="section ls-icon-bar" data-section-id="{{ section.id }}">
+    <div class="container">
+      {%- if section.settings.heading != blank -%}
+        <header class="section__header">
+          <h3 class="section__title heading h3">{{ section.settings.heading | escape }}</h3>
+        </header>
+      {%- endif -%}
+
+      <div class="text-with-icons text-with-icons--boxed">
+        {%- for block in section.blocks -%}
+          <div class="text-with-icons__item">
+            <div class="text-with-icons__icon-wrapper">
+              {%- render 'icon', icon: block.settings.icon, stroke_width: 1.5 -%}
+            </div>
+
+            <div class="text-with-icons__content-wrapper">
+              {%- if block.settings.label != blank -%}
+                {%- capture label -%}
+                  {%- if block.settings.url != blank -%}
+                    <a href="{{ block.settings.url }}">{{ block.settings.label | escape }}</a>
+                  {%- else -%}
+                    {{ block.settings.label | escape }}
+                  {%- endif -%}
+                {%- endcapture-%}
+                <p class="text-with-icons__title text--strong text--nowrap">{{ label }}</p>
+              {%- endif -%}
+
+              {%- if block.settings.text != blank -%}
+                <div class="text-with-icons__content rte">
+                  {{ block.settings.text }}
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    </div>
+    <style>
+      .ls-icon-bar .text-with-icons {
+        flex-wrap: wrap;
+        background-color: var(--secondary-background);
+      }
+      @media screen and (min-width: 641px) {
+        .ls-icon-bar .text-with-icons--boxed .text-with-icons__item {
+          position: relative;
+          top: -1px;
+        }
+        .ls-icon-bar .text-with-icons--boxed .text-with-icons__item:not(:first-child) {
+          border-top: inherit;
+          left: -1px;
+        }
+      }
+    </style>
+  </section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Icon Bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_icon_bar",
+      "label": "Show contacts",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "icon",
+      "name": "Icon",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            {
+              "value": "bi-add-to-cart",
+              "label": "Add to cart",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-gift-wrap",
+              "label": "Gift wrap",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-gift-box",
+              "label": "Gift box",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-heart",
+              "label": "Heart",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-ecology",
+              "label": "Ecology",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-plant",
+              "label": "Plant",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-shop",
+              "label": "Shop",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-shop-pin",
+              "label": "Shop with pin",
+              "group": "Shop"
+            },
+            {
+              "value": "bi-alert",
+              "label": "Alert",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-chat",
+              "label": "Chat",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-comment",
+              "label": "Comment",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-customer-support",
+              "label": "Customer support",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-email",
+              "label": "Email",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-network",
+              "label": "Network",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-newsletter",
+              "label": "Newsletter",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-love",
+              "label": "Love",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-phone",
+              "label": "Phone",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-share",
+              "label": "Share",
+              "group": "Communication"
+            },
+            {
+              "value": "bi-delivery",
+              "label": "Delivery",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-fast-delivery",
+              "label": "Fast delivery",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-returns",
+              "label": "Returns",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-time",
+              "label": "Time",
+              "group": "Delivery"
+            },
+            {
+              "value": "bi-secure-payment",
+              "label": "Secure payment",
+              "group": "Security"
+            },
+            {
+              "value": "bi-mobile-payment",
+              "label": "Mobile payment",
+              "group": "Security"
+            },
+            {
+              "value": "bi-credit-card",
+              "label": "Credit card",
+              "group": "Security"
+            },
+            {
+              "value": "bi-shield",
+              "label": "Shield",
+              "group": "Security"
+            }
+          ],
+          "default": "bi-phone"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Heading",
+          "default": "Customer Support"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Enter your text here</p>"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

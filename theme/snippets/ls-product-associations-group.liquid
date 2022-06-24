@@ -1,0 +1,35 @@
+<div class="container {% if section.settings.layout != 'vertical' or section.settings.stack_products %}container--flush{% endif %}">
+  <header class="section__header">
+    <h3 class="section__title heading h3">{{ heading }}</h3>
+    {%- capture count_label -%}
+      {%- if slug_count == 1 -%}
+        ({{ slug_count }} item)
+      {%- else -%}
+        ({{ slug_count }} items)
+      {%- endif -%}
+    {%- endcapture -%}
+    <p class="section__title-context">{{ count_label }}</p>
+  </header>
+
+  {%- capture product_list -%}
+    <div class="product-list product-list--{{ section.settings.layout }} {% if section.settings.stack_products %}product-list--stackable{% elsif section.settings.layout == 'vertical' %}product-list--scrollable{% endif %}">
+      {%- for slug in slugs -%}
+        {%- liquid
+          assign item = all_products[slug]
+          render 'ls-product-item', product: item, grid_classes: '1/4--lap 1/5--desk 1/6--wide', show_add_to_cart: show_add_to_cart, show_toggle_quick_view: show_toggle_quick_view
+        -%}
+      {%- endfor -%}
+    </div>
+  {%- endcapture -%}
+
+  {%- if section.settings.layout == 'vertical' and section.settings.stack_products == false -%}
+    <div class="scroller">
+      <div class="scroller__inner">
+        {{ product_list }}
+      </div>
+    </div>
+  {%- else -%}
+    {{ product_list }}
+  {%- endif -%}
+
+</div>

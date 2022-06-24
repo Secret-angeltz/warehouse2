@@ -1,0 +1,25 @@
+<div class="customer-profile">
+  <p>Enter your company name to complete your registration.</p>
+  <form id="{{ id }}" class="ls-customer-profile">
+    {%- comment -%}
+      The hidden input below is required by Accentuate to know which Shopify form to update.
+      @docs: https://my.accentuate.io/c/how-to/allow-customers-to-edit-own-fields
+    {%- endcomment -%}
+    <input type="hidden" name="customer[id]" value="{{ customer.id }}" />
+    {%- capture company_name_field -%}
+      <div class="form__input-wrapper form__input-wrapper--labelled">
+        <input type="text" id="metafield[sap.company_name]" class="form__field form__field--text" name="metafield[sap.company_name]" autocomplete="organization" required="required">
+        <label for="metafield[sap.company_name]" class="form__floating-label">{{ 'customer.register.company_name' | t }}</label>
+      </div>
+    {%- endcapture -%}
+    {%- if layout == 'inline' -%}
+      <div class="form__input-row">
+        {{ company_name_field }}
+        <button type="submit" class="form__submit button button--primary">Submit</button>
+      </div>
+    {%- else -%}
+        {{ company_name_field }}
+        <button type="submit" class="form__submit button button--primary button--full">Submit</button>
+    {%- endif -%}
+  </form>
+</div>

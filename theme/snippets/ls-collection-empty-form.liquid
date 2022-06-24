@@ -1,0 +1,87 @@
+{%- form 'contact', class: 'form' -%}
+
+  {%- if form.posted_successfully? -%}
+    <p class="alert alert--success">{{ 'contact.form.successfully_sent' | t }}</p>
+  {%- endif -%}
+
+  {%- if form.errors -%}
+    <div class="alert alert--error" id="contact-form-error">
+      <ul class="alert__error-list" role="list">
+        {%- for field in form.errors -%}
+          {%- if field == 'form' -%}
+            <li class="alert__error-item">{{ form.errors.messages[field] }}</li>
+          {%- else -%}
+            <li class="alert__error-item">{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </div>
+  {%- endif -%}
+
+  {%- assign sales_employee = customer.metafields.sap.sales_employee -%}
+  {%- capture customer_sales_employee -%}
+    {%- if sales_employee != blank -%}
+      {{ sales_employee }}
+    {%- elsif customer -%}
+      Customer is logged in but has no sales rep assigned
+    {%- else -%}
+      N/A - guest user who is not logged in to an account
+    {%- endif -%}
+  {%- endcapture -%}
+  <input type="hidden" name="contact[Customer Sales Rep]" value="{{ customer_sales_employee | strip }}">
+  <input type="hidden" name="contact[Collection URL]" value="{{ shop.url }}{{ collection.url }}">
+  <input type="hidden" name="contact[Collection Title]" value="{{ collection.title }}">
+
+  {%- liquid
+    assign company_name_title = 'Company Name'
+    assign company_name_value = customer.metafields.sap.company_name
+  -%}
+  <div class="form__input-row">
+    <div class="form__input-wrapper form__input-wrapper--labelled">
+      <input id="contact-form-company-name" type="text" class="form__field form__field--text {% if company_name_value != blank %}is-filled{% endif %}" name="contact[{{ company_name_title | escape }}]" aria-label="{{ company_name_title | escape }}" required {% if customer %}value="{{ company_name_value }}"{% endif %}>
+      <label for="contact-form-company-name" class="form__floating-label">{{ company_name_title | escape }}</label>
+    </div>
+  </div>
+
+  {%- liquid
+    assign company_account_title = 'Account Number'
+    assign company_account_value = customer.metafields.sap.account_number
+  -%}
+  <div class="form__input-row">
+    <div class="form__input-wrapper form__input-wrapper--labelled">
+      <input id="contact-form-account-number" type="text" class="form__field form__field--text {% if company_account_value != blank %}is-filled{% endif %}" name="contact[{{ company_account_title | escape }}]" aria-label="{{ company_account_title | escape }}" {% if customer %}value="{{ company_account_value }}"{% endif %}>
+      <label for="contact-form-account-number" class="form__floating-label">{{ company_account_title | escape }}</label>
+    </div>
+  </div>
+
+  <div class="form__input-row">
+    <div class="form__input-wrapper form__input-wrapper--labelled">
+      <input id="contact-form-first-name" type="text" class="form__field form__field--text {% if customer.first_name != blank %}is-filled{% endif %}" name="contact[first_name]" aria-label="{{ 'contact.form.name' | t }}" required {% if customer %}value="{{ customer.first_name }}"{% endif %}>
+      <label for="contact-form-first-name" class="form__floating-label">{{ 'contact.form.first_name' | t }}</label>
+    </div>
+
+    <div class="form__input-wrapper form__input-wrapper--labelled">
+      <input id="contact-form-last-name" type="text" class="form__field form__field--text {% if customer.last_name != blank %}is-filled{% endif %}" name="contact[last_name]" aria-label="{{ 'contact.form.email' | t }}" required {% if customer %}value="{{ customer.last_name }}"{% endif %}>
+      <label for="contact-form-last-name" class="form__floating-label">{{ 'contact.form.last_name' | t }}</label>
+    </div>
+  </div>
+
+  <div class="form__input-row">
+    <div class="form__input-wrapper form__input-wrapper--labelled">
+      <input id="contact-form-email" type="email" class="form__field form__field--text {% if customer.email != blank %}is-filled{% endif %}" name="contact[email]" aria-label="{{ 'contact.form.email' | t }}" required {% if customer %}value="{{ customer.email }}"{% endif %} {% if form.errors contains 'email' %}aria-invalid="true" aria-describedby="contact-form-error"{% endif %}>
+      <label for="contact-form-email" class="form__floating-label">{{ 'contact.form.email' | t }}</label>
+    </div>
+
+    <div class="form__input-wrapper form__input-wrapper--labelled">
+      <input id="contact-form-phone" type="tel" class="form__field form__field--text {% if customer.name != blank %}is-filled{% endif %}" name="contact[phone]" aria-label="{{ 'contact.form.phone' | t }}" required {% if customer %}value="{{ customer.phone | remove_first: '+1' }}"{% endif %} {% if form.errors contains 'phone' %}aria-invalid="true" aria-describedby="contact-form-error"{% endif %}>
+      <label for="contact-form-phone" class="form__floating-label">{{ 'contact.form.phone' | t }}</label>
+    </div>
+  </div>
+
+  <div class="form__input-wrapper form__input-wrapper--labelled">
+    <textarea id="contact-form-message" name="contact[body]" rows="8" class="form__field form__field--textarea" aria-label="What are you looking for?" required></textarea>
+    <label for="contact-form-message" class="form__floating-label">What are you looking for?</label>
+  </div>
+
+  <button type="submit" class="form__submit button button--primary button--min-width">{{ 'contact.form.submit' | t }}</button>
+{%- endform -%}

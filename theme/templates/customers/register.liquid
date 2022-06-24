@@ -1,0 +1,32 @@
+<section>
+  <div class="container">
+    {%- form 'create_customer', name: 'create', class: 'form form--main', id: 'create_customer' -%}
+      <header class="form__header">
+        <h1 class="form__title heading h1">{{ 'customer.register.create_account' | t }}</h1>
+        <p class="form__legend">{{ 'customer.register.description' | t }}</p>
+      </header>
+
+      {%- if form.errors -%}
+        <div class="alert alert--error" id="register-form-error">
+          <ul class="alert__error-list" role="list">
+            {%- for field in form.errors -%}
+              {%- if field == 'form' -%}
+                <li class="alert__error-item">{{ form.errors.messages[field] }}</li>
+              {%- else -%}
+                <li class="alert__error-item"><strong>{{ form.errors.translated_fields[field] }}</strong> {{ form.errors.messages[field] }}</li>
+              {%- endif -%}
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      {%- render 'ls-customer-register-form-fields' -%}
+
+      <button type="submit" class="form__submit button button--primary button--full">{{ 'customer.register.submit' | t }}</button>
+
+      <div class="form__secondary-action">
+        <p>{{ 'customer.register.already_have_account' | t }} <a href="{{ routes.account_login_url }}" class="link link--accented">{{ 'customer.register.login' | t }}</a></p>
+      </div>
+    {%- endform -%}
+  </div>
+</section>

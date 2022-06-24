@@ -1,0 +1,28 @@
+{
+  "name": "shopify-warehouse-theme",
+  "version": "2.7.3",
+  "description": "Liberty Supply's website based on Shopify's Warehouse theme",
+  "main": "index.js",
+  "scripts": {
+    "watch": "NODE_ENV=development npx mix watch",
+    "serve": "cd ./theme && shopify theme serve",
+    "dev": "npm run watch & npm run serve",
+    "build": "NODE_ENV=production npx mix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/libertysupply/shopify-warehouse-theme.git"
+  },
+  "author": "John Dugan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/libertysupply/shopify-warehouse-theme/issues"
+  },
+  "homepage": "https://github.com/libertysupply/shopify-warehouse-theme#readme",
+  "devDependencies": {
+    "laravel-mix": "^6.0.49",
+    "resolve-url-loader": "^5.0.0",
+    "sass": "^1.37.5",
+    "sass-loader": "^13.0.0"
+  }
+}

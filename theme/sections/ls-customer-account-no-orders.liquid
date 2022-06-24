@@ -1,0 +1,39 @@
+<div class="card__section">
+  <div class="empty-state empty-state--extra-tight">
+    <div class="empty-state__icon">
+      {%- render 'icon', icon: 'package' -%}
+      <span class="empty-state__count">0</span>
+    </div>
+
+    <p class="empty-state__icon-description">{{ 'customer.general.no_orders' | t }}</p>
+
+    {%- if section.settings.url != blank -%}
+      <div class="empty-state__button-container">
+        <a href="{{ section.settings.url }}" class="empty-state__button button button--primary">{{ section.settings.label }}</a>
+      </div>
+    {%- endif; -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "No Orders",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Shown when a customer has not yet placed an order."
+    },
+    {
+      "type": "url",
+      "id": "url",
+      "label": "Link"
+    },
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Label",
+      "default": "View Our Line Card"
+    }
+  ]
+}
+{% endschema %}

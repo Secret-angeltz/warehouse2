@@ -1,0 +1,142 @@
+{%- capture repair_part_slugs -%}
+  {%- render 'ls-filter-active-handles' page_type: 'product', slugs: product.metafields.associations.repair_parts -%}
+{%- endcapture -%}
+{%- liquid
+  assign repair_part_slugs = repair_part_slugs | strip | split: '|'
+  assign repair_part_count = repair_part_slugs | size
+-%}
+
+{%- capture upsell_slugs -%}
+  {%- render 'ls-filter-active-handles' page_type: 'product', slugs: product.metafields.associations.upsells -%}
+{%- endcapture -%}
+{%- liquid
+  assign upsell_slugs = upsell_slugs | strip | split: '|'
+  assign upsell_count = upsell_slugs | size
+-%}
+
+{%- capture direct_replacement_slugs -%}
+  {%- render 'ls-filter-active-handles' page_type: 'product', slugs: product.metafields.associations.direct_replacements -%}
+{%- endcapture -%}
+{%- liquid
+  assign direct_replacement_slugs = direct_replacement_slugs | strip | split: '|'
+  assign direct_replacement_count = direct_replacement_slugs | size
+-%}
+
+{%- capture alternate_item_slugs -%}
+  {%- render 'ls-filter-active-handles' page_type: 'product', slugs: product.metafields.associations.alternate_items -%}
+{%- endcapture -%}
+{%- liquid
+  assign alternate_item_slugs = alternate_item_slugs | strip | split: '|'
+  assign alternate_item_count = alternate_item_slugs | size
+-%}
+
+{%- liquid
+  assign direct_replacement_and_alternate_item_slugs = direct_replacement_slugs | concat: alternate_item_slugs
+  assign direct_replacement_and_alternate_item_count = direct_replacement_and_alternate_item_slugs | size
+  assign total_count = repair_part_count | plus: upsell_count | plus: direct_replacement_count | plus: alternate_item_count
+-%}
+
+{%- if total_count > 0 -%}
+
+{%- comment -%}
+    Code to make Flickity work is invoked by calling FeaturedCollectionSection
+    in theme.js. The `data-section-type="featured-collection" and
+    data-section-settings values are required to make it work. Also required
+    are the `product-list` and `product-list--*` classes in
+    ls-product-associations-group.liquid snippet.
+  {%- endcomment -%}
+
+  {%- capture section_settings -%}
+    {
+      "stackable": {% if section.settings.layout == 'vertical' and section.settings.stack_products == false %}false{% else %}true{% endif %},
+      "layout": {{ section.settings.layout | json }}
+    }
+  {%- endcapture -%}
+
+  {%- if repair_part_count > 0 -%}
+    <section class="section" data-section-id="{{ section.id }}-repair-parts" data-section-type="featured-collection" data-section-settings='{{ section_settings }}'>
+      {%- render 'ls-product-associations-group', slugs: repair_part_slugs, slug_count: repair_part_count, heading: 'Repair Parts', show_add_to_cart: section.settings.show_quick_buy, show_toggle_quick_view: section.settings.show_quick_view -%}
+    </section>
+  {%- endif -%}
+
+  {%- if upsell_count > 0 -%}
+    <section class="section" data-section-id="{{ section.id }}-upsells" data-section-type="featured-collection" data-section-settings='{{ section_settings }}'>
+      {%- render 'ls-product-associations-group', slugs: upsell_slugs, slug_count: upsell_count, heading: 'You May Also Need', show_add_to_cart: section.settings.show_quick_buy, show_toggle_quick_view: section.settings.show_quick_view -%}
+    </section>
+  {%- endif -%}
+
+  {%- if direct_replacement_and_alternate_item_count > 0 -%}
+    <section class="section" data-section-id="{{ section.id }}-alternate-items" data-section-type="featured-collection" data-section-settings='{{ section_settings }}'>
+      {%- render 'ls-product-associations-group', slugs: direct_replacement_and_alternate_item_slugs, slug_count: direct_replacement_and_alternate_item_count, heading: 'Alternate Items', show_add_to_cart: section.settings.show_quick_buy, show_toggle_quick_view: section.settings.show_quick_view -%}
+    </section>
+  {%- endif -%}
+
+  {%- comment -%}
+  --------------------------------------------------------------------------------------
+  QUICK VIEW CONTAINER
+  --------------------------------------------------------------------------------------
+  {%- endcomment -%}
+
+  <div id="modal-quick-view-{{ section.id }}" class="modal" aria-hidden="true">
+    <div class="modal__dialog modal__dialog--stretch" role="dialog">
+      <button class="modal__close link" data-action="close-modal" title="{{ 'general.accessibility.close' | t | escape }}">
+        {%- render 'icon', icon: 'close' -%}
+      </button>
+
+      <div class="modal__loader">
+        {%- render 'icon', icon: 'search-loader' -%}
+      </div>
+
+      <div class="modal__inner"></div>
+    </div>
+  </div>
+
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Product associations",
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "options": [
+        {
+          "value": "vertical",
+          "label": "Vertical"
+        },
+        {
+          "value": "horizontal",
+          "label": "Horizontal"
+        },
+        {
+          "value": "collage",
+          "label": "Collage"
+        }
+      ],
+      "default": "vertical"
+    },
+    {
+      "type": "checkbox",
+      "id": "stack_products",
+      "label": "Stack products",
+      "info": "Only applicable if layout is set to vertical",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_buy",
+      "label": "Show quick buy",
+      "default": false,
+      "info": "Only shows if layout is set to vertical"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_quick_view",
+      "label": "Show quick view",
+      "default": false
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,191 @@
+<section data-section-type="list-collections">
+  <div class="container">
+    <div class="page__sub-header{% if page.metafields.breadcrumbs.hide %} visually-hidden{% endif %}">
+      {%- render 'ls-breadcrumbs', item: page -%}
+    </div>
+
+    {%- capture child_page_slugs -%}
+      {%- render 'ls-filter-active-handles' page_type: 'page', slugs: page.metafields.references.child_pages -%}
+    {%- endcapture -%}
+    {%- liquid
+      assign child_page_slugs = child_page_slugs | strip | split: '|'
+      assign child_page_count = child_page_slugs | size
+    -%}
+
+    {%- capture child_collection_slugs -%}
+      {%- render 'ls-filter-active-handles' page_type: 'collection', slugs: page.metafields.references.child_collections -%}
+    {%- endcapture -%}      
+    {%- liquid
+      assign child_collection_slugs = child_collection_slugs | strip | split: '|'
+      assign child_collection_count = child_collection_slugs | size
+    -%}
+
+    {%- if child_page_count > 0 or child_collection_count > 0 -%}
+      <div class="collection-list__section">
+        <header class="page__header page__header--stack page__header--centered">
+          <h1 class="page__title heading h1">{{ page.title }}</h1>
+        </header>
+
+        <div class="grid">
+          {%- if child_page_count > 0 -%}
+            {%- for slug in child_page_slugs -%}
+              {%- liquid
+                assign item = pages[slug]
+                assign item_thumbnail = item.metafields.marketing.thumbnail | first
+                assign item_thumbnail_label = item.metafields.marketing.thumbnail_label | strip
+                render 'ls-catalog-guide-item', item: item, thumbnail: item_thumbnail, label: item_thumbnail_label
+              -%}
+            {%- endfor -%}
+          {%- endif -%}
+          {%- if child_collection_count > 0 -%}
+            {%- for slug in child_collection_slugs -%}
+              {%- liquid
+                assign item = collections[slug]
+                assign item_thumbnail = item.metafields.marketing.thumbnail | first
+                assign item_thumbnail_label = item.metafields.marketing.thumbnail_label | strip
+                render 'ls-catalog-guide-item', item: item, thumbnail: item_thumbnail, label: item_thumbnail_label
+              -%}
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+      </div>
+    {%- else -%}
+      {%- assign show_quote_request_form = true -%}
+      <div class="empty-collection">
+        {%- assign thumbnail = page.metafields.marketing.thumbnail | first -%}
+        <header class="empty-collection__header {% if thumbnail == blank %}page__header--centered{% endif %}">
+          {%- unless thumbnail == blank -%}
+            <div class="empty-collection__thumbnail-container collection-block-item">
+              <div class="aspect-ratio" style="padding-bottom: 45%">
+                {%- liquid
+                  assign thumbnail_small = thumbnail.cloudinary_src | append: 'w_225'
+                  assign thumbnail_medium = thumbnail.cloudinary_src | append: 'w_400'
+                  assign thumbnail_large = thumbnail.cloudinary_src | append: 'w_750'
+                -%}
+                <div class="collection-block-item__image lazyload image--fade-in" data-bgset="{{ thumbnail_small }} 225w, {{ thumbnail_medium }} 400w, {{ thumbnail_large }} 750w" data-sizes="auto"></div>
+              </div>
+            </div>
+          {%- endunless -%}
+          <h1 class="empty-collection__heading heading h1">{{ page.title }}</h1>
+        </header>
+        <div class="empty-collection__form-container">
+          <p class="form__header">{{ 'collection.general.empty' | t }} Please call <a href="tel:{{ shop.phone | remove: '-' }}" title="Call {{ shop.name }}" class="text--strong text--nowrap">{{ shop.phone }}</a>, or complete the quote request form below for immediate assistance.</p>
+          {%- render 'ls-collection-empty-form' -%}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{%- if show_quote_request_form -%}
+  {% section 'ls-icon-bar' %}
+{%- endif -%}
+
+{%- capture alternate_page_slugs -%}
+  {%- render 'ls-filter-active-handles' page_type: 'page', slugs: page.metafields.references.alternate_pages -%}
+{%- endcapture -%}
+{%- liquid
+  assign alternate_page_slugs = alternate_page_slugs | strip | split: '|'
+  assign alternate_page_count = alternate_page_slugs | size
+-%}
+
+{%- capture alternate_collection_slugs -%}
+  {%- render 'ls-filter-active-handles' page_type: 'collection', slugs: page.metafields.references.alternate_collections -%}
+{%- endcapture -%}      
+{%- liquid
+  assign alternate_collection_slugs = alternate_collection_slugs | strip | split: '|'
+  assign alternate_collection_count = alternate_collection_slugs | size
+-%}
+
+{%- if alternate_page_count > 0 or alternate_collection_count > 0 -%}
+  <aside class="section section--secondary" data-section-type="list-collections">
+    <div class="container">
+      <header class="section__header">
+        <h3 class="section__title heading h3">Alternate Lines</h3>
+      </header>
+
+      {%- if alternate_page_count > 0 or alternate_collection_count > 0 -%}
+        <div class="grid">
+          {%- if alternate_page_count > 0 -%}
+            {%- for slug in alternate_page_slugs -%}
+              {%- liquid
+                assign item = pages[slug]
+                assign item_thumbnail = item.metafields.marketing.thumbnail | first
+                assign item_thumbnail_label = item.title | strip
+                if page.metafields.references.hide_alternate_labels
+                  assign item_thumbnail_label = ''
+                endif
+                render 'ls-catalog-guide-item', item: item, thumbnail: item_thumbnail, label: item_thumbnail_label
+              -%}
+            {%- endfor -%}
+          {%- endif -%}
+          {%- if alternate_collection_count > 0 -%}
+            {%- for slug in alternate_collection_slugs -%}
+              {%- liquid
+                assign item = collections[slug]
+                assign item_thumbnail = item.metafields.marketing.thumbnail | first
+                assign item_thumbnail_label = item.title | strip
+                if page.metafields.references.hide_alternate_labels
+                  assign item_thumbnail_label = ''
+                endif
+                render 'ls-catalog-guide-item', item: item, thumbnail: item_thumbnail, label: item_thumbnail_label
+              -%}
+            {%- endfor -%}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </aside>
+{%- endif -%}
+
+{% for association_heading in page.metafields.associations.heading %}
+  <section data-section-type="list-collections">
+    <div class="container">
+      <div class="collection-list__section">
+        {%- liquid
+          assign index = forloop.index0
+          assign association_link = pages[page.metafields.associations.link[index]].url
+          assign association_link_label = page.metafields.associations.link_label[index]
+        -%}
+        <header class="section__header">
+          <h2 class="section__title heading h2">{{ association_heading }}</h2>
+          {%- unless association_link == blank -%}
+            <a href="{{ association_link }}" class="section__action-link link">{{ association_link_label | default: 'View All' }} {% render 'icon', icon: 'tail-right' %}</a>
+          {%- endunless -%}
+        </header>
+
+        {%- liquid
+          assign association_page_slugs = page.metafields.associations.pages[index] | split: '|'
+          assign association_page_count = association_page_slugs | size
+          assign association_collection_slugs = page.metafields.associations.collections[index] | split: '|'
+          assign association_collection_count = association_collection_slugs | size
+        -%}
+
+        {%- if association_page_count > 0 or association_collection_count > 0 -%}
+          <div class="grid">
+            {%- if association_page_count > 0 -%}
+              {%- for slug in association_page_slugs -%}
+                {%- liquid
+                  assign item = pages[slug]
+                  assign item_thumbnail = item.metafields.marketing.thumbnail | first
+                  assign item_thumbnail_label = item.metafields.marketing.thumbnail_label | strip
+                  render 'ls-catalog-guide-item', item: item, thumbnail: item_thumbnail, label: item_thumbnail_label
+                -%}
+              {%- endfor -%}
+            {%- endif -%}
+            {%- if association_collection_count > 0 -%}
+              {%- for slug in association_collection_slugs -%}
+                {%- liquid
+                  assign item = collections[slug]
+                  assign item_thumbnail = item.metafields.marketing.thumbnail | first
+                  assign item_thumbnail_label = item.metafields.marketing.thumbnail_label | strip
+                  render 'ls-catalog-guide-item', item: item, thumbnail: item_thumbnail, label: item_thumbnail_label
+                -%}
+              {%- endfor -%}
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </section>
+{% endfor %}

@@ -1,0 +1,16 @@
+<div class="grid__cell 1/2--tablet 1/3--lap-and-up">
+  <a href="{{ item.url }}" class="collection-block-item{% if label != blank %} collection-block-item--overlay{% endif %}">
+    <div class="aspect-ratio" style="padding-bottom: 45%">
+      {%- if thumbnail -%}
+        {%- liquid
+          assign thumbnail_medium = thumbnail.cloudinary_src | append: 'w_520'
+          assign thumbnail_large = thumbnail.cloudinary_src | append: 'w_748'
+        -%}
+        <div class="collection-block-item__image lazyload image--fade-in" data-bgset="{{ thumbnail_medium }} 520w, {{ thumbnail_large }} 748w" data-sizes="auto"></div>
+      {%- endif -%}
+    </div>
+    {%- if label != blank -%}
+      <p class="collection-block-item__title heading h2">{{ label }}</p>
+    {%- endif -%}
+  </a>
+</div>

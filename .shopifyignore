@@ -1,0 +1,5 @@
+# Exclude files from Shopify CLI
+# https://shopify.dev/themes/tools/cli#excluding-files-from-shopify-cli
+assets/mix-manifest.json
+config/settings_data.json
+locales/*

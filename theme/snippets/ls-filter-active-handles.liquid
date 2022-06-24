@@ -1,0 +1,35 @@
+{%- comment -%}
+This snippet removes EmptyDrops from strings of handle references. It is used to filter out "draft" products for Product page associations, among other areas.
+
+As an output, return a string of one handle, or multiple handles separated by the pipe ("|") character.
+
+NOTE: if the output of this snippit is captured into a variable, make sure to call trim to eliminate any whitespace.
+{%- endcomment -%}
+
+{%- case page_type -%}
+  {%- when 'product' -%}
+    {%- assign lookup_method = 'all_products' -%}
+  {%- when 'collection' -%}
+    {%- assign lookup_method = 'collections' -%}
+  {%- else -%}
+    {%- assign lookup_method = 'pages' -%}
+{%- endcase -%}
+
+{%- liquid
+    assign slugs = slugs | split: '|'
+    assign active_slugs = ''
+-%}
+
+{%- for slug in slugs -%}
+  {%- assign item = [lookup_method][slug] -%}
+  {%- unless item.empty? -%}
+    {%- assign active_slugs_count = active_slugs | size -%}
+    {%- if active_slugs_count == 0 -%}
+      {%- assign active_slugs = active_slugs | append: slug -%}
+    {%- else -%}
+      {%- assign active_slugs = active_slugs | append: '|' | append: slug -%}
+    {%- endif -%}
+  {%- endunless -%}
+{%- endfor -%}
+
+{{ active_slugs }}
