@@ -1,0 +1,8 @@
+{
+  "root": true,
+  "extends": ["@johndugan"],
+  "rules": {
+    // Turn off until how I can make Prettier play nice with ESlint.
+    "space-before-function-paren": "off"
+  }
+}

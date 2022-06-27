@@ -4,7 +4,10 @@
 
 var mix = require('laravel-mix');
 
-mix.js('src/js/ls-global.js', '')
-    .js('src/js/ls-customers.js', '')
-    .sass('src/scss/theme.scss', '')
-    .setPublicPath('theme/assets');
+mix
+  .js('src/js/theme.js', '')
+  .js('src/js/custom.js', '')
+  .js('src/js/ls-global.js', '')
+  .js('src/js/ls-customers.js', '')
+  .sass('src/scss/theme.scss', '')
+  .setPublicPath('theme/assets');

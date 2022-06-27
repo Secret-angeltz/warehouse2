@@ -1,1 +1,3 @@
 theme/assets
+src/scss/theme.scss
+src/js/theme.js
