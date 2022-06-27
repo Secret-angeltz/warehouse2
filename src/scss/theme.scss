@@ -5668,7 +5668,7 @@ select option {
 
 .header__logo-image {
   display: block;
-  vertical-align: middle;
+  // vertical-align: middle; // LS theme change
   max-height: 130px;
 }
 
@@ -9455,7 +9455,7 @@ shopify-payment-terms {
   text-align: center;
   border: 1px solid var(--form-border-color);
   border-radius: 3px;
-  vertical-align: middle;
+  // vertical-align: middle; // LS theme change
   cursor: pointer;
   box-shadow: 0 1px 1px rgba(var(--border-color-rgb), 0.25);
 }
