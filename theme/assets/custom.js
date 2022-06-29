@@ -1,3 +1,8 @@
+/******/ (() => { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!**************************!*\
+  !*** ./src/js/custom.js ***!
+  \**************************/
 /**
  * Include your custom JavaScript here.
  *
@@ -33,4 +38,5 @@
  *   bubbles: true
  * }));
  */
-
+/******/ })()
+;

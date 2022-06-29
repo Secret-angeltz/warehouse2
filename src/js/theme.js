@@ -18479,7 +18479,6 @@
       sections.register('header', HeaderSection);
       sections.register('login', LoginSection);
       sections.register('map', MapSection);
-      sections.register('minimal-header', MinimalHeaderSection);
       sections.register('popups', PopupsSection);
       sections.register('product-recommendations', ProductRecommendationsSection);
       sections.register('product', ProductSection);
