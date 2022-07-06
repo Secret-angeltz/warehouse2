@@ -166,7 +166,7 @@ ContentForHeaderModification:
   ignore: []
 
 ImgLazyLoading:
-  enabled: true
+  enabled: false
   ignore: []
 
 HtmlParsingError:
