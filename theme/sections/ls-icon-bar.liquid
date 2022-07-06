@@ -1,33 +1,38 @@
 {%- if section.settings.show_icon_bar -%}
-  <section class="section ls-icon-bar" data-section-id="{{ section.id }}">
-    <div class="container">
+  <section class='section ls-icon-bar' data-section-id='{{ section.id }}'>
+    <div class='container'>
       {%- if section.settings.heading != blank -%}
-        <header class="section__header">
-          <h3 class="section__title heading h3">{{ section.settings.heading | escape }}</h3>
+        <header class='section__header'>
+          <h3 class='section__title heading h3'>
+            {{ section.settings.heading | escape }}
+          </h3>
         </header>
       {%- endif -%}
 
-      <div class="text-with-icons text-with-icons--boxed">
+      <div class='text-with-icons text-with-icons--boxed'>
         {%- for block in section.blocks -%}
-          <div class="text-with-icons__item">
-            <div class="text-with-icons__icon-wrapper">
+          <div class='text-with-icons__item'>
+            <div class='text-with-icons__icon-wrapper'>
               {%- render 'icon', icon: block.settings.icon, stroke_width: 1.5 -%}
             </div>
 
-            <div class="text-with-icons__content-wrapper">
+            <div class='text-with-icons__content-wrapper'>
               {%- if block.settings.label != blank -%}
                 {%- capture label -%}
                   {%- if block.settings.url != blank -%}
-                    <a href="{{ block.settings.url }}">{{ block.settings.label | escape }}</a>
+                    <a href='{{ block.settings.url }}'>
+                      {{- block.settings.label | escape -}}
+                    </a>
                   {%- else -%}
                     {{ block.settings.label | escape }}
                   {%- endif -%}
-                {%- endcapture-%}
-                <p class="text-with-icons__title text--strong text--nowrap">{{ label }}</p>
+                {%- endcapture -%}
+                <p class='text-with-icons__title text--strong text--nowrap'>
+                  {{ label }}
+                </p>
               {%- endif -%}
-
               {%- if block.settings.text != blank -%}
-                <div class="text-with-icons__content rte">
+                <div class='text-with-icons__content rte'>
                   {{ block.settings.text }}
                 </div>
               {%- endif -%}
@@ -46,7 +51,9 @@
           position: relative;
           top: -1px;
         }
-        .ls-icon-bar .text-with-icons--boxed .text-with-icons__item:not(:first-child) {
+        .ls-icon-bar
+          .text-with-icons--boxed
+          .text-with-icons__item:not(:first-child) {
           border-top: inherit;
           left: -1px;
         }
@@ -218,7 +225,7 @@
           "type": "text",
           "id": "label",
           "label": "Heading",
-          "default": "Customer Support"
+          "default": "Your Title"
         },
         {
           "type": "url",
