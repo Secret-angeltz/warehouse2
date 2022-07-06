@@ -21,6 +21,7 @@
   "homepage": "https://github.com/libertysupply/shopify-warehouse-theme#readme",
   "devDependencies": {
     "@johndugan/eslint-config": "^2.4.1",
+    "@shopify/prettier-plugin-liquid": "^0.1.4",
     "laravel-mix": "^6.0.49",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.37.5",
