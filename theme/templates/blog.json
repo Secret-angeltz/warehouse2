@@ -1,1 +1,27 @@
-{"sections":{"main":{"type":"main-blog","blocks":{"newsletter":{"type":"newsletter","settings":{}},"social-media":{"type":"social_media","settings":{}}},"block_order":["newsletter","social-media"],"settings":{}}},"order":["main"]}
+{
+  "sections": {
+    "main": {
+      "type": "main-blog",
+      "blocks": {
+        "newsletter": {
+          "type": "newsletter",
+          "settings": {
+            "title": "Liberty Supply Chain",
+            "content": "<p>Get supply chain insights delivered monthly from our team to your inbox.</p>",
+            "subtext": "",
+            "background": "#1c3c70",
+            "text": "#ffffff"
+          }
+        },
+        "social-media": {"type": "social_media", "settings": {}}
+      },
+      "block_order": ["newsletter", "social-media"],
+      "settings": {}
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {}
+    }
+  },
+  "order": ["main", "newsletter"]
+}

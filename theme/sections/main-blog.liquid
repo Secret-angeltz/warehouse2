@@ -1,4 +1,4 @@
-<article data-section-id="{{ section.id }}" data-section-type="blog">
+<section data-section-id="{{ section.id }}" data-section-type="blog">
   <div class="container">
     {%- if blog.articles_count > 0 -%}
       <header class="page__header">
@@ -91,7 +91,7 @@
       {%- endif -%}
 
       {%- if section.blocks.size > 0 and blog.articles_count > 0 -%}
-        <div class="blog-sidebar hidden-tablet">
+        <aside class="blog-sidebar hidden-tablet">
           {%- for block in section.blocks -%}
             {%- case block.type -%}
               {%- when 'newsletter' -%}
@@ -291,11 +291,11 @@
                 </div>
             {%- endcase -%}
           {%- endfor -%}
-        </div>
+        </aside>
       {%- endif -%}
     </div>
   </div>
-</article>
+</section>
 
 {% schema %}
 {
@@ -490,7 +490,7 @@
       "max": 30,
       "step": 1,
       "label": "Posts per page",
-      "default": 12
+      "default": 5
     },
     {
       "type": "checkbox",
@@ -528,7 +528,7 @@
       "type": "checkbox",
       "id": "show_excerpt",
       "label": "Show excerpt",
-      "default": false
+      "default": true
     }
   ]
 }

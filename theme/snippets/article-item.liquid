@@ -1,4 +1,4 @@
-<div class="article-item {% if featured %}article-item--featured{% endif %}">
+<article class="article-item {% if featured %}article-item--featured{% endif %}">
   {%- if article.image -%}
     <a href="{{ article.url }}" class="article-item__image-container">
       {%- capture supported_sizes -%}{%- render 'image-size', sizes: '200,300,400,500,600,700,800,900,1000,1200,1400', image: article.image -%}{%- endcapture -%}
@@ -53,4 +53,4 @@
       {%- endif -%}
     </div>
   {%- endif -%}
-</div>
+</article>
