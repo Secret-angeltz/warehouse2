@@ -187,7 +187,34 @@
         </div>
       </div>
 
-      {{- form | payment_terms -}}
+      {%- comment -%}
+        DO NOT SHOW SHOPIFY'S "SHOP-PAY" MESSAGE
+        {{- form | payment_terms -}}
+      {%- endcomment -%}
+
+      <p class="product-form__price-info product-form__price-info--flex">
+        {%- if settings.show_discount -%}
+          {%- assign savings = 0 -%}
+
+          {%- if settings.discount_mode == 'percentage' -%}
+            {%- assign savings = selected_variant.compare_at_price | minus: selected_variant.price | times: 100.0 | divided_by: selected_variant.compare_at_price | round | append: '%' -%}
+          {%- else -%}
+            {%- capture savings -%}<span>{{ selected_variant.compare_at_price | minus: selected_variant.price | money }}</span>{%- endcapture -%}
+          {%- endif -%}
+
+          <span class="product-label product-label--on-sale text--nowrap" {% unless selected_variant.price < selected_variant.compare_at_price %}style="display: none"{% endunless %}>{{ 'collection.product.discount_html' | t: savings: savings }}</span>
+        {%- endif -%}
+
+        {%- liquid
+          assign sales_employee = customer.metafields.sap.sales_employee
+          assign sales_employee_phone = customer.metafields.sap.sales_employee_phone
+        -%}
+        {% if sales_employee != blank and sales_employee_phone != blank %}
+          <span><a href="tel:{{ sales_employee_phone | remove: '-' }}" title="{{ sales_employee_phone }}" class="link link--accented">Call {{ sales_employee }}</a> for volume pricing</span>
+        {% else %}
+          <span><a href="tel:{{ shop.phone | remove: '-' }}" class="link link--accented">Call {{ shop.phone }}</a> for contract pricing</span>
+        {% endif %}
+      </p>
 
       {%- if block.settings.show_taxes_included -%}
         {%- if cart.taxes_included or shop.shipping_policy.body != blank -%}

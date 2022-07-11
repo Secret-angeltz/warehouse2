@@ -50,18 +50,6 @@
         <span class="product-label product-label--custom2">{{ tag | split: '__label2:' | last }}</span>
       {%- endif -%}
     {%- endfor -%}
-
-    {%- if settings.show_discount -%}
-      {%- assign savings = 0 -%}
-
-      {%- if settings.discount_mode == 'percentage' -%}
-        {%- assign savings = selected_variant.compare_at_price | minus: selected_variant.price | times: 100.0 | divided_by: selected_variant.compare_at_price | round | append: '%' -%}
-      {%- else -%}
-        {%- capture savings -%}<span>{{ selected_variant.compare_at_price | minus: selected_variant.price | money }}</span>{%- endcapture -%}
-      {%- endif -%}
-
-      <span class="product-label product-label--on-sale" {% unless selected_variant.price < selected_variant.compare_at_price %}style="display: none"{% endunless %}>{{ 'collection.product.discount_html' | t: savings: savings }}</span>
-    {%- endif -%}
   {%- endcapture -%}
 
   {%- if product_labels != blank -%}
@@ -70,7 +58,12 @@
     </div>
   {%- endif -%}
 
-  {%- if block.settings.show_vendor or block.settings.show_sku -%}
+  {%- if 
+    block.settings.show_vendor or 
+    block.settings.show_sku or
+    block.settings.show_mpn or
+    block.settings.show_model
+  -%}
     <div class="product-meta__reference">
       {%- if block.settings.show_vendor -%}
         {%- assign vendor_handle = product.vendor | handle -%}
@@ -82,10 +75,27 @@
           <a class="product-meta__vendor link link--accented" href="{{ product.vendor | url_for_vendor }}">{{ product.vendor }}</a>
         {%- endunless -%}
       {%- endif -%}
-
+      
       {%- if block.settings.show_sku -%}
-        <span class="product-meta__sku" {% if selected_variant.sku == blank %}style="display: none"{% endif %}>
-          {{- 'product.general.sku' | t -}} <span class="product-meta__sku-number">{{ selected_variant.sku }}</span>
+        <span class="product-meta__sku product-meta__keyvalue" {% if selected_variant.sku == blank %}style="display: none"{% endif %}>
+          <span class="text--nowrap">{{- 'product.general.sku' | t -}}</span>
+          <span class="product-meta__sku-number text--nowrap">{{ selected_variant.sku }}</span>
+        </span>
+      {%- endif -%}
+      {%- liquid
+        assign mpn = product.metafields.erp.mpn | strip
+        assign model = product.metafields.erp.model | strip
+      -%}
+      {%- if block.settings.show_mpn and mpn != blank -%}
+        <span class=" product-meta__keyvalue" {% if selected_variant.sku == blank %}style="display: none"{% endif %}>
+          <span class="text--nowrap">Part Number:</span>
+          <span class="text--nowrap">{{ mpn }}</span>
+        </span>
+      {%- endif -%}
+      {%- if block.settings.show_model and model != blank -%}
+        <span class="product-meta__keyvalue" {% if selected_variant.sku == blank %}style="display: none"{% endif %}>
+          <span class="text--nowrap" title="Manufacturer part number">Model:</span>
+          <span class="text--nowrap">{{ model }}</span>
         </span>
       {%- endif -%}
     </div>
