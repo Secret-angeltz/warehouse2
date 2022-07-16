@@ -16,7 +16,8 @@
         "variant_selector": {
           "type": "variant_selector",
           "settings": {
-            "show_inventory_quantity": true
+            "show_inventory_quantity": true,
+            "low_inventory_threshold": 1
           }
         },
         "buy_buttons": {
