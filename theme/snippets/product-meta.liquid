@@ -88,13 +88,13 @@
       -%}
       {%- if block.settings.show_mpn and mpn != blank -%}
         <span class=" product-meta__keyvalue" {% if selected_variant.sku == blank %}style="display: none"{% endif %}>
-          <span class="text--nowrap">Part Number:</span>
+          <span class="text--nowrap">{{- 'product.general.mpn' | t -}}</span>
           <span class="text--nowrap">{{ mpn }}</span>
         </span>
       {%- endif -%}
       {%- if block.settings.show_model and model != blank -%}
         <span class="product-meta__keyvalue" {% if selected_variant.sku == blank %}style="display: none"{% endif %}>
-          <span class="text--nowrap" title="Manufacturer part number">Model:</span>
+          <span class="text--nowrap">{{- 'product.general.model' | t -}}</span>
           <span class="text--nowrap">{{ model }}</span>
         </span>
       {%- endif -%}
