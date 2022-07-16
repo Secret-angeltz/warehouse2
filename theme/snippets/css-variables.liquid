@@ -59,7 +59,7 @@
     --background               : {{ settings.background }};
     --secondary-background     : {{ settings.secondary_background }};
     --secondary-background-rgb : {{ settings.secondary_background | color_extract: 'red' }}, {{ settings.secondary_background | color_extract: 'green' }}, {{ settings.secondary_background | color_extract: 'blue' }};
-    --accent-background        : {{settings.accent_color | color_modify: 'alpha', 0.08 }};
+    --accent-background        : {{settings.accent_color | color_modify: 'alpha', 0.08 | color_desaturate: 60 }};
 
     --input-background: {% if settings.secondary_background == settings.text_color %}{% else %}{{ settings.secondary_background }}{% endif %};
 
