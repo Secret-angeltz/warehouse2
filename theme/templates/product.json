@@ -22,9 +22,7 @@
         },
         "buy_buttons": {
           "type": "buy_buttons",
-          "settings": {
-            "display_mode": "view_more"
-          }
+          "settings": {}
         },
         "description": {
           "type": "description",

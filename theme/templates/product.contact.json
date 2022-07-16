@@ -1,1 +1,74 @@
-{"sections":{"main":{"type":"main-product","blocks":{"product_meta":{"type":"product_meta","settings":{}},"variant_selector":{"type":"variant_selector","settings":{}},"buy_buttons":{"type":"buy_buttons","settings":{}},"description":{"type":"description","settings":{}}},"block_order":["product_meta","variant_selector","buy_buttons","description"],"settings":{}},"product-recommendations":{"type":"product-recommendations","settings":{}},"recently-viewed-products":{"type":"recently-viewed-products","settings":{}}},"order":["main","product-recommendations","recently-viewed-products"]}
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "product_meta": {
+          "type": "product_meta",
+          "settings": {
+            "show_vendor": false,
+            "show_sku": true,
+            "show_mpn": true,
+            "show_model": true,
+            "show_share_buttons": false
+          }
+        },
+        "variant_selector": {
+          "type": "variant_selector",
+          "settings": {
+            "show_inventory_quantity": true
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {}
+        },
+        "description": {
+          "type": "description",
+          "settings": {
+            "display_mode": "view_more"
+          }
+        },
+        "specifications": {
+          "type": "specifications",
+          "settings": {
+            "display_mode": "view_more"
+          }
+        },
+        "documents": {
+          "type": "documents",
+          "settings": {
+            "display_mode": "view_more"
+          }
+        }
+      },
+      "block_order": [
+        "product_meta",
+        "variant_selector",
+        "buy_buttons",
+        "description",
+        "specifications",
+        "documents"
+      ],
+      "settings": {}
+    },
+    "product-associations": {
+      "type": "ls-product-associations",
+      "settings": {}
+    },
+    "product-recommendations": {
+      "type": "product-recommendations",
+      "settings": {}
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "product-associations",
+    "product-recommendations",
+    "recently-viewed-products"
+  ]
+}
