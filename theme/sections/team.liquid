@@ -7,7 +7,9 @@
 
       {%- case block.type -%}
         {%- when 'separator' -%}
-          <h2 class="team__section-title heading h3" {{ block.shopify_attributes }}>{{ block.settings.title | escape }}</h2>
+          {%- if block.settings.title != blank -%}
+            <h2 class="team__section-title heading h3" {{ block.shopify_attributes }}>{{ block.settings.title | escape }}</h2>
+          {%- endif -%}
 
         {%- when 'member' -%}
           <div class="team__block-item team__member" {{ block.shopify_attributes }}>

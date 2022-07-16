@@ -1,1 +1,144 @@
-{"sections":{"main":{"type":"main-page","settings":{}},"team":{"type":"team","blocks":{"separator-1":{"type":"separator","settings":{"title":"Our team"}},"member-1":{"type":"member","settings":{"title":"John D.","subheading":"CEO","link":"mailto:john@test.com"}},"member-2":{"type":"member","settings":{"title":"Emily H.","subheading":"CTO","link":"mailto:emily@test.com"}}},"block_order":["separator-1","member-1","member-2"],"settings":{}}},"order":["main","team"]}
+{
+  "sections": {
+    "main": {"type": "main-page", "settings": {}},
+    "team": {
+      "type": "team",
+      "blocks": {
+        "separator-1": {
+          "type": "separator",
+          "settings": {
+            "title": ""
+          }
+        },
+        "josh-redding": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/josh-redding.jpg",
+            "title": "Josh Redding",
+            "subheading": "Sales Engineer",
+            "link": "mailto:josh@libertysupply.com",
+            "link_title": "Email Me"
+          }
+        },
+        "olivia-bontems": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/olivia-bontems.jpg",
+            "title": "Olivia Bontems",
+            "subheading": "Sales Account Representative",
+            "link": "mailto:olivia@libertysupply.com",
+            "link_title": "Email Me"
+          }
+        },
+        "jesse-verbeek": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/jesse-verbeek.jpg",
+            "title": "Jesse Verbeek",
+            "subheading": "Sales Account Representative",
+            "link": "mailto:jesse@libertysupply.com",
+            "link_title": "Email Me"
+          }
+        },
+        "mitch-hughes": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/mitch-hughes.jpg",
+            "title": "Mitch Hughes",
+            "subheading": "Sales Account Representative",
+            "link": "mailto:mitch@libertysupply.com",
+            "link_title": "Email Me"
+          }
+        },
+        "jon-michael": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/jon-michael.jpg",
+            "title": "Jon Michael",
+            "subheading": "Finance/Operations Support Specialist",
+            "link": "mailto:jon@libertysupply.com",
+            "link_title": "Email Me"
+          }
+        },
+        "john-dugan": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/john-dugan.jpg",
+            "title": "John Dugan",
+            "subheading": "CEO",
+            "link": "mailto:john@libertysupply.com",
+            "link_title": "Email Me"
+          }
+        },
+        "patrick-carder": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/patrick-carder.jpg",
+            "title": "Patrick Carder",
+            "subheading": "CRO",
+            "link": "mailto:patrick@libertysupply.com",
+            "link_title": "Email Me"
+          }
+        },
+        "peter-canale": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/peter-canale.jpg",
+            "title": "Peter Canale",
+            "subheading": "Director of IT",
+            "link": "mailto:peter@libertysupply.com",
+            "link_title": "Email Me"
+          }
+        },
+        "laura-eck": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/laura-eck.jpg",
+            "title": "Laura Eck",
+            "subheading": "Marketing Manager",
+            "link": "mailto:laura@libertysupply.com",
+            "link_title": "Email Me"
+          }
+        },
+        "indy": {
+          "type": "member",
+          "settings": {
+            "image": "shopify://shop_images/Indy_headshot.jpg",
+            "title": "Indy (Independence)",
+            "subheading": "Director of Feline Relations",
+            "link": "shopify://blogs/company-blog/please-welcome-our-new-director-of-feline-relations",
+            "link_title": "Read About Me"
+          }
+        },
+        "promotion": {
+          "type": "promotion",
+          "settings": {
+            "title": "Join Our Team",
+            "content": "<p>We‘re always interested in speaking with great talent.</p>",
+            "button_text": "Contact Us",
+            "button_link": "mailto:support@libertysupply.com",
+            "background": "#1c3c70",
+            "text": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "separator-1",
+        "josh-redding",
+        "olivia-bontems",
+        "jesse-verbeek",
+        "mitch-hughes",
+        "jon-michael",
+        "john-dugan",
+        "patrick-carder",
+        "peter-canale",
+        "laura-eck",
+        "indy",
+        "promotion"
+      ],
+      "settings": {}
+    },
+    "newsletter": {"type": "newsletter", "settings": {}}
+  },
+  "order": ["main", "team", "newsletter"]
+}
