@@ -1,5 +1,5 @@
 <div class="container container--flush container--narrow">
-  <div class="faq" itemscope itemtype="https://schema.org/FAQPage">
+  <div class="faq" {% if page.template_suffix != 'ls-policies' %}itemscope itemtype="https://schema.org/FAQPage"{% endif %}>
     <div class="faq__group-list">
       {%- for block in section.blocks -%}
         {%- if forloop.first or block.type == 'separator' -%}
@@ -24,6 +24,19 @@
                 </div>
               </div>
             </div>
+          {%- when 'policy' -%}
+            <div class="faq__item" {{ block.shopify_attributes }}>
+              <div class="faq__item-wrapper">
+                <button class="faq__question heading h4" data-action="toggle-collapsible" aria-expanded="false" aria-controls="block-{{ block.id }}">{{ block.settings.label | escape }} <span class="plus-button plus-button--large"></span></button>
+
+                <div id="block-{{ block.id }}" class="faq__answer-wrapper">
+                  <div class="faq__answer rte">
+                    {%- assign policy_name = block.settings.url | remove: '/policies/' | replace: '-', '_' -%}
+                    {{ shop[policy_name].body }}
+                  </div>
+                </div>
+              </div>
+            </div>          
         {%- endcase -%}
 
         {%- if forloop.last or block.type == 'question' and section.blocks[forloop.index].type == 'separator' -%}
@@ -56,7 +69,14 @@
 
                 <div class="text-with-icons__content-wrapper">
                   {%- if section.settings.contact_1_heading != blank -%}
-                    <p class="text-with-icons__title text--strong">{{ section.settings.contact_1_heading | escape }}</p>
+                    {%- capture heading -%}
+                      {%- if section.settings.contact_1_url != blank -%}
+                        <a href="{{ section.settings.contact_1_url }}">{{ section.settings.contact_1_heading | escape }}</a>
+                      {%- else -%}
+                        {{ section.settings.contact_1_heading | escape }}
+                      {%- endif -%}
+                    {%- endcapture -%}
+                    <p class="text-with-icons__title text--strong">{{ heading }}</p>
                   {%- endif -%}
 
                   {%- if section.settings.contact_1_text != blank -%}
@@ -76,7 +96,14 @@
 
                 <div class="text-with-icons__content-wrapper">
                   {%- if section.settings.contact_2_heading != blank -%}
-                    <p class="text-with-icons__title text--strong">{{ section.settings.contact_2_heading | escape }}</p>
+                    {%- capture heading -%}
+                      {%- if section.settings.contact_2_url != blank -%}
+                        <a href="{{ section.settings.contact_2_url }}">{{ section.settings.contact_2_heading | escape }}</a>
+                      {%- else -%}
+                        {{ section.settings.contact_2_heading | escape }}
+                      {%- endif -%}
+                    {%- endcapture -%}
+                    <p class="text-with-icons__title text--strong">{{ heading }}</p>
                   {%- endif -%}
 
                   {%- if section.settings.contact_2_text != blank -%}
@@ -267,6 +294,11 @@
       "default": "Customer support"
     },
     {
+      "type": "url",
+      "id": "contact_1_url",
+      "label": "Link"
+    },
+    {
       "type": "richtext",
       "id": "contact_1_text",
       "label": "Text",
@@ -421,6 +453,11 @@
       "default": "Send a message"
     },
     {
+      "type": "url",
+      "id": "contact_2_url",
+      "label": "Link"
+    },
+    {
       "type": "richtext",
       "id": "contact_2_text",
       "label": "Text",
@@ -453,6 +490,22 @@
           "type": "richtext",
           "id": "answer",
           "label": "Answer"
+        }
+      ]
+    },
+    {
+      "type": "policy",
+      "name": "Policy",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
         }
       ]
     }

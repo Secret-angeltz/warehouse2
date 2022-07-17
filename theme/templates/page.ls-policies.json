@@ -1,0 +1,60 @@
+{
+  "sections": {
+    "main": {"type": "main-page", "settings": {}},
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "shipping-policy": {
+          "type": "policy",
+          "settings": {
+            "label": "Shipping Policy",
+            "url": "shopify://policies/shipping-policy"
+          }
+        },
+        "return-policy": {
+          "type": "policy",
+          "settings": {
+            "label": "Return Policy",
+            "url": "shopify://policies/refund-policy"
+          }
+        },
+        "privacy-policy": {
+          "type": "policy",
+          "settings": {
+            "label": "Privacy Policy",
+            "url": "shopify://policies/privacy-policy"
+          }
+        },
+        "terms-of-service": {
+          "type": "policy",
+          "settings": {
+            "label": "Terms of Service",
+            "url": "shopify://policies/terms-of-service"
+          }
+        }
+      },
+      "block_order": [
+        "separator-1",
+        "shipping-policy",
+        "return-policy",
+        "privacy-policy",
+        "terms-of-service"
+      ],
+      "settings": {
+        "show_contact_info": true,
+        "contact_info_heading": "Have Questions?",
+        "contact_info_text": "<p>If you have questions about our policies, please contact us!</p>",
+        "contact_1_icon": "bi-phone",
+        "contact_1_heading": "844-448-0880",
+        "contact_1_url": "tel:8444480880",
+        "contact_1_text": "<p>Call customer support</p>",
+        "contact_2_icon": "bi-email",
+        "contact_2_heading": "support@libertysupply.com",
+        "contact_2_url": "mailto:support@libertysupply.com?subject=Policies Question",
+        "contact_2_text": "<p>Email customer Support</p>"
+      }
+    },
+    "newsletter": {"type": "newsletter", "settings": {}}
+  },
+  "order": ["main", "faq", "newsletter"]
+}
