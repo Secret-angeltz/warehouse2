@@ -8,10 +8,10 @@
 
         {%- case block.type -%}
           {%- when 'separator' -%}
-            <h1 class="faq__group-title heading h2" {{ block.shopify_attributes }}>
+            <h2 class="faq__group-title heading h2" {{ block.shopify_attributes }}>
               <span class="anchor" id="block-{{ block.id }}"></span>
               {{- block.settings.title | escape -}}
-            </h1>
+            </h2>
           {%- when 'question' -%}
             <div class="faq__item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question" {{ block.shopify_attributes }}>
               <div class="faq__item-wrapper">
