@@ -315,18 +315,18 @@
  * --------------------------------------------------------------------
  */
 
-.ls-contact-page-map [data-section-id='map'] {
+.ls-contact-page [data-section-type='map'] {
     margin: 28px 0;
 }
 
 @media screen and (min-width: 641px) {
-    .ls-contact-page-map [data-section-id='map'] {
+    .ls-contact-page [data-section-type='map'] {
         margin: 35px 0;
     }
 }
 
 @media screen and (min-width: 1000px) {
-    .ls-contact-page-map .map {
+    .ls-contact-page .map {
         height: 360px;
     }
 }
