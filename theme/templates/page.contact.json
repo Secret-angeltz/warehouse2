@@ -1,1 +1,105 @@
-{"sections":{"main":{"type":"main-page","settings":{}},"contact-form":{"type":"contact-form","settings":{}}},"order":["main","contact-form"]}
+{
+  "wrapper": "div.ls-contact-page",
+  "sections": {
+    "main": {"type": "main-page", "settings": {}},
+    "map": {
+      "type": "map",
+      "blocks": {
+        "liberty-supply": {
+          "type": "store",
+          "settings": {
+            "title": "Liberty Supply",
+            "address": "<p>13821 Industrial Park Blvd, Minneapolis, MN 55441</p>",
+            "hours": "<p>Phone: <a href=\"tel:8444480880\" title=\"tel:8444480880\">844-448-0880</a><br/>Fax: 844-448-0881</p><p>Monday - Friday: 6 a.m. – 6 p.m.<br/>Saturday: As Needed<br/>Sunday: Closed</p>",
+            "map_address": "13821 Industrial Park Blvd, Minneapolis, MN 55441"
+          }
+        }
+      },
+      "block_order": ["liberty-supply"],
+      "settings": {
+        "title": "",
+        "map_link_label": "Get directions",
+        "api_key": "AIzaSyDQE6b29Vc8Ld63Lu0_SeluvWJBr5a5rH0",
+        "zoom": 15,
+        "draggable_map": true,
+        "show_map_controls": true,
+        "map_style": "standard"
+      }
+    },
+    "icon-bar": {
+      "type": "ls-icon-bar",
+      "blocks": {
+        "phone": {
+          "type": "icon",
+          "settings": {
+            "icon": "bi-phone",
+            "label": "844-448-0880",
+            "url": "tel:8444480880",
+            "text": "<p>Call customer support</p>"
+          }
+        },
+        "email": {
+          "type": "icon",
+          "settings": {
+            "icon": "bi-email",
+            "label": "support@libertysupply.com",
+            "url": "mailto:support@libertysupply.com?subject=Website Contact Inquiry",
+            "text": "<p>Email customer support</p>"
+          }
+        },
+        "hours": {
+          "type": "icon",
+          "settings": {
+            "icon": "bi-time",
+            "label": "Hours of Operation",
+            "url": "",
+            "text": "<p>Weekdays 6 a.m. – 6.p.m. Central</p>"
+          }
+        }
+      },
+      "block_order": ["phone", "email", "hours"],
+      "settings": {
+        "show_icon_bar": true,
+        "heading": ""
+      }
+    },
+    "contact-form": {
+      "type": "contact-form",
+      "blocks": {
+        "department": {
+          "type": "dropdown",
+          "settings": {
+            "title": "Department",
+            "values": "Sales, Shipping, Billing, Returns, Management",
+            "is_required": true
+          }
+        },
+        "company-name": {
+          "type": "text",
+          "settings": {
+            "title": "Company Name",
+            "use_long_text": false,
+            "is_required": true
+          }
+        },
+        "account-number": {
+          "type": "text",
+          "settings": {
+            "title": "Account Number",
+            "use_long_text": false,
+            "is_required": false
+          }
+        }
+      },
+      "block_order": ["department", "company-name", "account-number"],
+      "settings": {
+        "form_heading": "Email a Department Head",
+        "show_store_info": true,
+        "store_heading": "Holidays Observed",
+        "store_info": "<p><em><strong>2022 Holidays</strong></em></p><p><strong>Good Friday: </strong>Closed at 2 p.m. central on April 15th</p><p><strong>Memorial Day: </strong>Closed May 30th</p><p><strong>Independence Day:</strong> Closed July 4th</p><p><strong>Labor Day: </strong>Closed September 5th</p><p><strong>Thanksgiving: </strong>Closed November 24th & 25th</p><p><strong>Christmas:</strong> Closed December 26th</p>"
+      }
+    },
+    "newsletter": {"type": "newsletter", "settings": {}}
+  },
+  "order": ["main", "map", "icon-bar", "contact-form", "newsletter"]
+}

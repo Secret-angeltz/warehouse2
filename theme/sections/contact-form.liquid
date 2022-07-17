@@ -26,20 +26,12 @@
           </div>
         {%- endif -%}
 
-        <div class="form__input-row">
-          <div class="form__input-wrapper form__input-wrapper--labelled">
-            <input id="contact-form-name" type="text" class="form__field form__field--text {% if customer.name != blank %}is-filled{% endif %}" name="contact[name]" aria-label="{{ 'contact.form.name' | t }}" required {% if customer %}value="{{ customer.name }}"{% endif %}>
-            <label for="contact-form-name" class="form__floating-label">{{ 'contact.form.name' | t }}</label>
-          </div>
-
-          <div class="form__input-wrapper form__input-wrapper--labelled">
-            <input id="contact-form-email" type="email" class="form__field form__field--text {% if customer.email != blank %}is-filled{% endif %}" name="contact[email]" aria-label="{{ 'contact.form.email' | t }}" required {% if customer %}value="{{ customer.email }}"{% endif %} {% if form.errors contains 'email' %}aria-invalid="true" aria-describedby="contact-form-error"{% endif %}>
-            <label for="contact-form-email" class="form__floating-label">{{ 'contact.form.email' | t }}</label>
-          </div>
-        </div>
-
         {%- for block in section.blocks -%}
-          {%- assign field_title = block.settings.title -%}
+          {%- liquid
+            assign field_title = block.settings.title
+            assign metafield_name = block.settings.title | handle | replace: '-', '_'
+            assign customer_sap_field = customer.metafields.sap[metafield_name]
+          -%}
 
           {%- if field_title == blank -%}
             {%- capture field_title -%}Custom field {% increment custom_field %}{%- endcapture -%}
@@ -51,7 +43,7 @@
                 <textarea id="contact-form-{{ field_title | handle }}" name="contact[{{ field_title | escape }}]" rows="7" class="form__field form__field--textarea" aria-label="{{ block.settings.title | escape }}" {% if block.settings.is_required %}required{% endif %}></textarea>
                 <label for="contact-form-{{ field_title | handle }}" class="form__floating-label">{{ block.settings.title | escape }}</label>
               {%- else -%}
-                <input id="contact-form-{{ field_title | handle }}" type="text" class="form__field form__field--text" name="contact[{{ field_title | escape }}]" aria-label="{{ block.settings.title | escape }}" {% if block.settings.is_required %}required{% endif %}>
+                <input id="contact-form-{{ field_title | handle }}" type="text" class="form__field form__field--text {% if customer_sap_field != blank %}is-filled{% endif %}" name="contact[{{ field_title | escape }}]" aria-label="{{ block.settings.title | escape }}" {% if block.settings.is_required %}required{% endif %} {% if customer %}value="{{ customer_sap_field }}"{% endif %}>
                 <label for="contact-form-{{ field_title | handle }}" class="form__floating-label">{{ block.settings.title | escape }}</label>
               {%- endif -%}
             </div>
@@ -66,7 +58,7 @@
               <div id="contact-form-{{ field_title | handle }}" class="select-wrapper select-wrapper--primary">
                 {%- render 'icon', icon: 'arrow-bottom' -%}
 
-                <select name="contact[{{ field_title | escape }}]" title="{{ block.settings.title | escape }}" required>
+                <select name="contact[{{ field_title | escape }}]" title="{{ block.settings.title | escape }}" {% if block.settings.is_required %}required{% endif %}>
                   <option value="" disabled selected></option>
 
                   {%- for value in values -%}
@@ -77,10 +69,34 @@
                 </select>
               </div>
 
-              <label for="contact-form-{{ field_title | handle }}" class="form__floating-label">{{ block.settings.title | escape }}</label>
+              <label for="contact-form-{{ field_title | handle }}" class="form__floating-label {% if block.settings.is_required %}required{% endif %}">{{ block.settings.title | escape }}</label>
             </div>
           {%- endif -%}
         {%- endfor -%}
+
+        <div class="form__input-row">
+          <div class="form__input-wrapper form__input-wrapper--labelled">
+            <input id="contact-form-first-name" type="text" class="form__field form__field--text {% if customer.first_name != blank %}is-filled{% endif %}" name="contact[first_name]" aria-label="{{ 'contact.form.name' | t }}" required {% if customer %}value="{{ customer.first_name }}"{% endif %}>
+            <label for="contact-form-first-name" class="form__floating-label">{{ 'contact.form.first_name' | t }}</label>
+          </div>
+
+          <div class="form__input-wrapper form__input-wrapper--labelled">
+            <input id="contact-form-last-name" type="text" class="form__field form__field--text {% if customer.last_name != blank %}is-filled{% endif %}" name="contact[last_name]" aria-label="{{ 'contact.form.email' | t }}" required {% if customer %}value="{{ customer.last_name }}"{% endif %}>
+            <label for="contact-form-last-name" class="form__floating-label">{{ 'contact.form.last_name' | t }}</label>
+          </div>
+        </div>
+
+        <div class="form__input-row">
+          <div class="form__input-wrapper form__input-wrapper--labelled">
+            <input id="contact-form-email" type="email" class="form__field form__field--text {% if customer.email != blank %}is-filled{% endif %}" name="contact[email]" aria-label="{{ 'contact.form.email' | t }}" required {% if customer %}value="{{ customer.email }}"{% endif %} {% if form.errors contains 'email' %}aria-invalid="true" aria-describedby="contact-form-error"{% endif %}>
+            <label for="contact-form-email" class="form__floating-label">{{ 'contact.form.email' | t }}</label>
+          </div>
+
+          <div class="form__input-wrapper form__input-wrapper--labelled">
+            <input id="contact-form-phone" type="tel" class="form__field form__field--text {% if customer.name != blank %}is-filled{% endif %}" name="contact[phone]" aria-label="{{ 'contact.form.phone' | t }}" required {% if customer %}value="{{ customer.phone | remove_first: '+1' }}"{% endif %} {% if form.errors contains 'phone' %}aria-invalid="true" aria-describedby="contact-form-error"{% endif %}>
+            <label for="contact-form-phone" class="form__floating-label">{{ 'contact.form.phone' | t }}</label>
+          </div>
+        </div>
 
         <div class="form__input-wrapper form__input-wrapper--labelled">
           <textarea id="contact-form-message" name="contact[body]" rows="8" class="form__field form__field--textarea" aria-label="{{ 'contact.form.message' | t }}" required></textarea>
@@ -199,6 +215,12 @@
           "label": "Values",
           "info": "Separate each value by a comma.",
           "default": "value 1, value 2, value 3"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_required",
+          "label": "Field is required",
+          "default": false
         }
       ]
     }
