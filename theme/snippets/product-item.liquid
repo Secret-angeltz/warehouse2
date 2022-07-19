@@ -66,6 +66,12 @@
         </noscript>
       </div>
     </a>
+  {%- else -%}
+    <a href="{{ product.url }}" class="product-item__image-wrapper">
+      <div class="aspect-ratio" style="padding-bottom: {{ 2.0 | divided_by: 3 | times: 100 }}%">
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+      </div>
+    </a>
   {%- endif -%}
 
   <div class="product-item__info">
@@ -160,10 +166,13 @@
       {%- capture vendor -%}
         {%- if settings.show_vendor -%}
           {%- assign vendor_handle = product.vendor | handle -%}
+          {%- assign page_for_vendor = pages[vendor_handle] -%}
           {%- assign collection_for_vendor = collections[vendor_handle] -%}
 
-          {%- unless collection_for_vendor.empty? -%}
-            <a class="product-item__vendor link" href="{{ collection_for_vendor.url }}">{{ product.vendor }}</a>
+          {%- unless page_for_vendor.empty? -%}
+            <a class="product-item__vendor link" href="{{ page_for_vendor.url }}">{{ product.vendor }}</a>
+          {%- elsif collection_for_vendor != empty -%}
+            <a class="product-item__vendor link" href="{{ collection_for_vendor.url }}" data-foo="bar">{{ product.vendor }}</a>
           {%- else -%}
             <a class="product-item__vendor link" href="{{ product.vendor | url_for_vendor }}">{{ product.vendor }}</a>
           {%- endunless -%}
