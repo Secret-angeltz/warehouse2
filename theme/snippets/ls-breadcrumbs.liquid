@@ -66,7 +66,11 @@
         {%- assign breadcrumbs_structured_data = breadcrumbs_structured_data | append: breadcrumb_structured_data | strip -%}
       {%- endfor -%}
     {%- endif -%}
-    {%- assign item_label = item.metafields.breadcrumbs.label | default: item.title | strip -%}
+    {%- if request.path == routes.all_products_collection_url -%}
+      {%- assign item_label = 'collection.general.all_products' | t -%}
+    {%- else -%}
+      {%- assign item_label = item.metafields.breadcrumbs.label | default: item.title | strip -%}
+    {%- endif -%}
     {%- if request.page_type == 'product' -%}
 
       {%- comment -%}
