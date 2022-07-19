@@ -9,7 +9,7 @@
 <nav aria-label="{{ 'general.breadcrumb.title' | t }}" class="breadcrumb">
   <ol class="breadcrumb__list" role="list">
     <li class="breadcrumb__item text--nowrap">
-      <a class="breadcrumb__link link" href="{{ routes.root_url }}">{{ 'general.breadcrumb.home' | t }}</a> {%- render 'icon', icon: 'arrow-right' -%}
+      <a class="breadcrumb__link link" href="{{ routes.root_url }}" title="{{ shop.name }}">{{ 'general.breadcrumb.home' | t }}</a> {%- render 'icon', icon: 'arrow-right' -%}
     </li>
     {%- capture breadcrumb_structured_data -%}
       {
@@ -29,7 +29,7 @@
           assign breadcrumb_label = breadcrumb.metafields.breadcrumbs.label | default: breadcrumb.title | strip 
         -%}
         <li class="breadcrumb__item text--nowrap">
-          <a class="breadcrumb__link link" href="{{ breadcrumb.url }}">{{ breadcrumb_label }}</a> {%- render 'icon', icon: 'arrow-right' -%}
+          <a class="breadcrumb__link link" href="{{ breadcrumb.url }}" title="{{ breadcrumb.title }}">{{ breadcrumb_label }}</a> {%- render 'icon', icon: 'arrow-right' -%}
         </li>
         {%- capture breadcrumb_structured_data -%}
           ,{
@@ -51,7 +51,7 @@
           assign breadcrumb_label = breadcrumb.metafields.breadcrumbs.label | default: breadcrumb.title | strip
         -%}
         <li class="breadcrumb__item text--nowrap">
-          <a class="breadcrumb__link link" href="{{ breadcrumb.url }}">{{ breadcrumb_label }}</a> {%- render 'icon', icon: 'arrow-right' -%}
+          <a class="breadcrumb__link link" href="{{ breadcrumb.url }}" title="{{ breadcrumb.title }}">{{ breadcrumb_label }}</a> {%- render 'icon', icon: 'arrow-right' -%}
         </li>
         {%- capture breadcrumb_structured_data -%}
           ,{
@@ -73,7 +73,7 @@
           Below is the collection breadcrumb that the product is assigned to.
       {%- endcomment -%}
       <li class="breadcrumb__item text--nowrap">
-        <a class="breadcrumb__link link" href="{{ item.url }}">{{ item_label }}</a> {%- render 'icon', icon: 'arrow-right' -%}
+        <a class="breadcrumb__link link" href="{{ item.url }}" title="{{ item.title }}">{{ item_label }}</a> {%- render 'icon', icon: 'arrow-right' -%}
       </li>
       {%- capture breadcrumb_structured_data -%}
         ,{
@@ -95,7 +95,7 @@
         assign product_label = product.metafields.breadcrumbs.label | default: product_variant.sku | strip
       -%}
       <li class="breadcrumb__item text--nowrap">
-        <span class="breadcrumb__link">{{ product_label }}</span>
+        <a class="breadcrumb__link" href="{{ product.url }}" title="{{ product.title }}" aria-current="page">{{ product_label }}</a>
       </li>
       {%- capture breadcrumb_structured_data -%}
         ,{
@@ -112,7 +112,7 @@
     {%- else -%}
 
       <li class="breadcrumb__item text--nowrap">
-        <span class="breadcrumb__link">{{ item_label }}</span>
+        <a class="breadcrumb__link" href="{{ item.url }}" title="{{ item.title }}" aria-current="page">{{ item_label }}</a>
       </li>
       {%- capture breadcrumb_structured_data -%}
         ,{
