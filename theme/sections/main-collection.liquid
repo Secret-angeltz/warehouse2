@@ -43,23 +43,7 @@
 <section data-section-id="{{ section.id }}" data-section-type="collection" data-section-settings='{{ section_settings }}'>
   <div class="container container--flush">
     <div class="page__sub-header">
-      <nav aria-label="{{ 'general.breadcrumb.title' | t }}" class="breadcrumb">
-        <ol class="breadcrumb__list" role="list">
-          <li class="breadcrumb__item">
-            <a class="breadcrumb__link link" href="{{ routes.root_url }}">{{ 'general.breadcrumb.home' | t }}</a> {%- render 'icon', icon: 'arrow-right' -%}
-          </li>
-
-          <li class="breadcrumb__item">
-            <a class="breadcrumb__link link" href="{{ collection.url }}" aria-current="page">
-              {%- if collection.handle == 'all' -%}
-                {{- 'collection.general.all_products' | t -}}
-              {%- else -%}
-                {{- collection.title -}}
-              {%- endif -%}
-            </a>
-          </li>
-        </ol>
-      </nav>
+      {%- render 'ls-breadcrumbs', item: collection -%}
     </div>
 
     <div {% if has_filters %}class="layout"{% endif %}>
@@ -307,12 +291,26 @@
             {%- endcomment -%}
 
             {%- if collection.all_products_count == 0 -%}
-              <div class="empty-state">
-                <p class="empty-state__heading heading h1">{{ collection.title }}</p>
-                <p class="empty-state__description">{{ 'collection.general.empty' | t }}</p>
-
-                <div class="empty-state__button-container">
-                  <a href="{{ routes.root_url }}" class="empty-state__button button button--primary">{{ 'collection.general.empty_button' | t }}</a>
+              <div class="empty-collection">
+                {%- assign thumbnail = collection.metafields.marketing.thumbnail | first -%}
+                <header class="empty-collection__header {% if thumbnail == blank %}page__header--centered{% endif %}">
+                  {%- unless thumbnail == blank -%}
+                    <div class="empty-collection__thumbnail-container collection-block-item">
+                      <div class="aspect-ratio" style="padding-bottom: 45%">
+                        {%- liquid
+                          assign thumbnail_small = thumbnail.cloudinary_src | append: 'w_225'
+                          assign thumbnail_medium = thumbnail.cloudinary_src | append: 'w_400'
+                          assign thumbnail_large = thumbnail.cloudinary_src | append: 'w_750'
+                        -%}
+                        <div class="collection-block-item__image lazyload image--fade-in" data-bgset="{{ thumbnail_small }} 225w, {{ thumbnail_medium }} 400w, {{ thumbnail_large }} 750w" data-sizes="auto"></div>
+                      </div>
+                    </div>
+                  {%- endunless -%}
+                  <h1 class="empty-collection__heading heading h1">{{ collection.title }}</h1>
+                </header>
+                <div class="empty-collection__form-container">
+                  <p class="form__header">{{ 'collection.general.empty' | t }} Please call <a href="tel:{{ shop.phone | remove: '-' }}" title="Call {{ shop.name }}" class="text--strong text--nowrap">{{ shop.phone }}</a>, or complete the quote request form below for immediate assistance.</p>
+                  {%- render 'ls-collection-empty-form' -%}
                 </div>
               </div>
             {%- else -%}
