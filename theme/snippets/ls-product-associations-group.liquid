@@ -16,7 +16,7 @@
       {%- for slug in slugs -%}
         {%- liquid
           assign item = all_products[slug]
-          render 'ls-product-item', product: item, grid_classes: '1/4--lap 1/5--desk 1/6--wide', show_add_to_cart: show_add_to_cart, show_toggle_quick_view: show_toggle_quick_view
+          render 'product-item', product: item, grid_classes: '1/4--lap 1/5--desk 1/6--wide', show_add_to_cart: show_add_to_cart, show_toggle_quick_view: show_toggle_quick_view
         -%}
       {%- endfor -%}
     </div>

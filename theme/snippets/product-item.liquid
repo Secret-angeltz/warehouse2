@@ -296,8 +296,12 @@
       {%- endif -%}
     </div>
 
-    {%- if request.page_type == 'collection' or request.page_type == 'search' or show_add_to_cart -%}
-      {%- if section.settings.show_quick_view == 'list_grid' or section.settings.show_quick_buy == 'list_grid' or show_add_to_cart -%}
+    {%- comment -%}
+      `show_toggle_quick_view` is an argument passed to this snippet when it's
+      rendered inside of the ls-product-associations.liquid snippet.
+    {%- endcomment -%}
+    {%- if request.page_type == 'collection' or request.page_type == 'search' or show_add_to_cart or show_toggle_quick_view -%}
+      {%- if section.settings.show_quick_view == 'list_grid' or section.settings.show_quick_buy == 'list_grid' or show_add_to_cart or show_toggle_quick_view -%}
         {%- assign product_form_classes = 'product-item__action-list button-stack' -%}
       {%- else -%}
         {%- assign product_form_classes = 'product-item__action-list product-item__action-list--list-view-only button-stack' -%}
@@ -338,7 +342,7 @@
             <button class="{{ quick_buy_classes | replace: 'button--primary', 'button--disabled' }}" disabled>{{ 'collection.product.sold_out' | t }}</button>
           {%- endif -%}
 
-          {%- if section.settings.show_quick_view == 'list_grid' -%}
+          {%- if section.settings.show_quick_view == 'list_grid' or show_toggle_quick_view -%}
             {%- assign quick_view_classes = 'product-item__action-button button button--small button--ternary hidden-phone' -%}
           {%- else -%}
             {%- assign quick_view_classes = 'product-item__action-button product-item__action-button--list-view-only button button--small button--ternary hidden-phone' -%}
