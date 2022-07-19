@@ -1,47 +1,51 @@
 <section data-section-id="{{ section.id }}" data-section-type="list-collections">
   <div class="container">
     <div class="page__sub-header">
-      <nav aria-label="{{ 'general.breadcrumb.title' | t }}" class="breadcrumb">
-        <ol class="breadcrumb__list" role="list">
-          <li class="breadcrumb__item">
-            <a class="breadcrumb__link link" href="{{ routes.root_url }}">{{ 'general.breadcrumb.home' | t }}</a> {%- render 'icon', icon: 'arrow-right' -%}
-          </li>
-          {%- capture breadcrumb_structured_data -%}
-            {
-              "@type": "ListItem",
-              "position": 1,
-              "item": {
-                "@id": "{{ shop.url }}",
-                "name": {{ 'general.breadcrumb.home' | t | json }}
-              } 
-            }
-          {%- endcapture -%}
-          {%- assign breadcrumbs_structured_data = breadcrumbs_structured_data | append: breadcrumb_structured_data | strip -%}
-          <li class="breadcrumb__item">
-            <a class="breadcrumb__link" href="{{ routes.collections_url }}" aria-current="page">{{ 'collection.general.all_collections' | t }}</a>
-          </li>
-          {%- capture breadcrumb_structured_data -%}
-            {
-              "@type": "ListItem",
-              "position": 2,
-              "item": {
-                "@id": "{{ shop.url }}{{ routes.collections_url }}",
-                "name": {{ 'collection.general.all_collections' | t | json }}
-              } 
-            }
-          {%- endcapture -%}
-          {%- assign breadcrumbs_structured_data = breadcrumbs_structured_data | append: breadcrumb_structured_data | strip -%}
-        </ol>
-      </nav>
-      <script type="application/ld+json">
-        {
-          "@context": "http://schema.org",
-          "@type": "BreadcrumbList",
-          "itemListElement": [
-            {{ breadcrumbs_structured_data }}
-          ]
-        }
-      </script>
+      {%- if template == 'page.list-collections' -%}
+        {%- render 'ls-breadcrumbs', item: page -%}
+      {%- else -%}
+        <nav aria-label="{{ 'general.breadcrumb.title' | t }}" class="breadcrumb">
+          <ol class="breadcrumb__list" role="list">
+            <li class="breadcrumb__item">
+              <a class="breadcrumb__link link" href="{{ routes.root_url }}">{{ 'general.breadcrumb.home' | t }}</a> {%- render 'icon', icon: 'arrow-right' -%}
+            </li>
+            {%- capture breadcrumb_structured_data -%}
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "item": {
+                  "@id": "{{ shop.url }}",
+                  "name": {{ 'general.breadcrumb.home' | t | json }}
+                } 
+              }
+            {%- endcapture -%}
+            {%- assign breadcrumbs_structured_data = breadcrumbs_structured_data | append: breadcrumb_structured_data | strip -%}
+            <li class="breadcrumb__item">
+              <a class="breadcrumb__link" href="{{ routes.collections_url }}" aria-current="page">{{ 'collection.general.all_collections' | t }}</a>
+            </li>
+            {%- capture breadcrumb_structured_data -%}
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "item": {
+                  "@id": "{{ shop.url }}{{ routes.collections_url }}",
+                  "name": {{ 'collection.general.all_collections' | t | json }}
+                } 
+              }
+            {%- endcapture -%}
+            {%- assign breadcrumbs_structured_data = breadcrumbs_structured_data | append: breadcrumb_structured_data | strip -%}
+          </ol>
+        </nav>
+        <script type="application/ld+json">
+          {
+            "@context": "http://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {{ breadcrumbs_structured_data }}
+            ]
+          }
+        </script>
+      {%- endif -%}
     </div>
 
     {%- assign has_brand_collections = false -%}
