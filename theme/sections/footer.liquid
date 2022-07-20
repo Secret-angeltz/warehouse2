@@ -45,6 +45,80 @@
                   </div>
                 {%- endunless -%}
 
+              {%- when 'contact' -%}
+                <div class="footer__block-item footer__block-item--contact" {{ block.shopify_attributes }}>
+                  <button class="footer__title heading h6" disabled aria-expanded="false" aria-controls="block-{{ block.id }}" data-action="toggle-collapsible">
+                    <span>{{ block.settings.title | escape }}</span>
+                    <span class="plus-button"></span>
+                  </button>
+
+                  <div id="block-{{ block.id }}" class="footer__collapsible">
+                    <div class="footer__collapsible-content">
+                      <ul class="footer__linklist list--unstyled" role="list">
+                        <li>
+                          <span class="footer__link-item">Phone: <a href="tel:{{ shop.phone | remove: '-' }}" class="link">{{ shop.phone }}</a></span>
+                        </li>
+                        <li>
+                          <span class="footer__link-item">Fax: {{ shop.metafields.contacts.fax }}</a></span>
+                        </li>
+                      </ul>
+                      <div class="rte">
+                        {%- capture shop_address -%}
+                          {%- if shop.address.address2 == blank -%}
+                            {{ shop.address.address1 }}
+                          {%- else -%}
+                            {{ shop.address.address1 }}, {{ shop.address.address2 }}
+                          {%- endif -%}
+                          <br>
+                          {{ shop.address.city }}, {{ shop.address.province }} {{ shop.address.zip }}
+                        {%- endcapture -%}
+                        <address class="footer__address">
+                          {{ shop_address }}
+                        </address>
+                      </div>
+                      {%- if block.settings.content != blank -%}
+                        <div class="rte">
+                          {{ block.settings.content }}
+                        </div>
+                      {%- endif -%}
+                    </div>
+                  </div>
+                </div>
+
+              {%- when 'image' -%}
+                {%- liquid
+                  assign landscape_image = block.settings.landscape_image
+                  assign panoramic_image = block.settings.panoramic_image
+                -%}
+                {%- if panoramic_image == blank -%}
+                  {%- assign panoramic_image = landscape_image -%}
+                {%- endif -%}
+                <div class="footer__block-item footer__block-item--image" {{ block.shopify_attributes }}>
+                  {%- capture background_srcset -%}
+                    {%- if landscape_image -%}
+                      {{ landscape_image | img_url: '440x', crop: 'center' }} 440w,
+                      {{ landscape_image | img_url: '590x', crop: 'center' }} 590w,
+                      {{ landscape_image | img_url: '950x', crop: 'center' }} 950w,
+                      {{ landscape_image | img_url: '580x', crop: 'center' }} 580w [(max-width: 999px)] |
+                      {{ panoramic_image | img_url: '1180x', crop: 'center' }} 1180w,
+                      {{ panoramic_image | img_url: '1500x', crop: 'center' }} 1500w [(min-width: 1000px) and (max-width: 1203px)] |
+                      {{ landscape_image | img_url: '290x', crop: 'center' }} 290w,
+                      {{ landscape_image | img_url: '440x', crop: 'center' }} 440w,
+                      {{ landscape_image | img_url: '580x', crop: 'center' }} 580w [(min-width: 1204px)]
+                    {%- endif -%}
+                  {%- endcapture -%}
+                  <div class="footer__background-image lazyload image--fade-in" data-bgset="{{ background_srcset }}" data-sizes="auto">
+                    {%- if block.settings.title != blank -%}
+                      <p class="footer__title heading h6">
+                        <span>{{ block.settings.title | escape }}</span>
+                      </p>
+                    {%- endif -%}
+                    {%- if landscape_image == blank and panoramic_image == blank -%}
+                      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {%- endif -%}
+                  </div>
+                </div>
+
               {%- when 'newsletter' -%}
                 <div class="footer__block-item footer__block-item--newsletter" {{ block.shopify_attributes }}>
                   <p class="footer__title heading h6">{{ block.settings.title | escape }}</p>
@@ -163,7 +237,13 @@
             {%- endform -%}
           {%- endif -%}
 
-          {%- capture copyright_info -%}© {{ 'now' | date: '%Y' }} {{ shop.name }}<br>{{ powered_by_link }}{%- endcapture -%}
+          {%- capture copyright_info -%}
+            © {{ 'now' | date: '%Y' }} {{ shop.name }}
+            {%- if section.settings.policies_link != blank -%}
+              <br>
+              <a href="{{ section.settings.policies_link }}">{{ section.settings.policies_label }}</a>
+            {%- endif -%}
+          {%- endcapture -%}
           <p class="hidden-pocket">{{ copyright_info }}</p>
         </div>
 
@@ -242,6 +322,21 @@
     },
     {
       "type": "header",
+      "content": "Store Policies"
+    },
+    {
+      "type": "url",
+      "id": "policies_link",
+      "label": "Policies Link"
+    },
+    {
+      "type": "text",
+      "id": "policies_label",
+      "label": "Policies Label",
+      "default": "Company Policies"
+    },
+    {
+      "type": "header",
       "content": "Language selector",
       "info": "To add a language, go to your [language settings.](/admin/settings/languages)"
     },
@@ -307,6 +402,53 @@
           "id": "menu",
           "label": "Menu",
           "info": "This menu won't show dropdown items."
+        }
+      ]
+    },
+    {
+      "type": "contact",
+      "name": "Contact",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Contact Us"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Use this text area to add supplamentary contact information.</p>"
+        }
+      ]
+    },
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Visit our store"
+        },
+        {
+          "type": "image_picker",
+          "id": "landscape_image",
+          "label": "Landscape Image",
+          "info": "1920 x 1280px (3:2) .jpg recommended"
+        },
+        {
+          "type": "image_picker",
+          "id": "panoramic_image",
+          "label": "Panoramic Image",
+          "info": "1920 x 384px (5:1) .jpg recommended"
+        },
+        {
+          "type": "url",
+          "id": "url",
+          "label": "Link"
         }
       ]
     },
