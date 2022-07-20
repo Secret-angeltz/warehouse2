@@ -65,11 +65,26 @@
     <div class="announcement-bar">
       <div class="container">
         <div class="announcement-bar__inner">
-          {%- if section.settings.link != blank -%}
-            <a href="{{ section.settings.link }}" class="announcement-bar__content announcement-bar__content--{{ section.settings.text_position }}">{{ section.settings.text | escape }}</a>
-          {%- else -%}
-            <p class="announcement-bar__content announcement-bar__content--{{ section.settings.text_position }}">{{ section.settings.text | escape }}</p>
-          {%- endif -%}
+          <p class="announcement-bar__content announcement-bar__content--{{ section.settings.text_position }}">
+            <span class="announcement-bar__phone">EST. 2021, USA{% if shop.phone != blank %} | <a href="tel:{{ shop.phone | remove: '-' }}" title="Call {{ shop.name }}">{{ shop.phone }}</a>{% endif %}</span>
+
+            <span class="announcement-bar__hours">
+              {%- if section.settings.text != blank -%}
+                {%- if section.settings.link != blank -%}
+                  <a class="announcement-bar__hours-message" href="{{ section.settings.link }}" {% if section.settings.link_title != blank %}title="{{ section.settings.link_title }}"{% endif %}>{{ section.settings.text }}</a>
+                {%- else -%}
+                  <span class="announcement-bar__hours-message">{{ section.settings.text }}</span>
+                {%- endif -%}
+              {%- endif -%}
+              {%- if section.settings.mobile_text != blank -%}
+                {%- if section.settings.link != blank -%}
+                  <a class="announcement-bar__hours-link" href="{{ section.settings.link }}" {% if section.settings.link_title != blank %}title="{{ section.settings.link_title }}"{% endif %}>{{ section.settings.mobile_text }}</a>
+                {%- else -%}
+                  <span class="announcement-bar__hours-link">{{ section.settings.text }}</span>
+                {%- endif -%}
+              {%- endif -%}
+            </span>
+          </p>
 
           {%- if section.settings.show_newsletter -%}
             <button type="button" class="announcement-bar__button hidden-phone" data-action="toggle-newsletter" aria-expanded="false" aria-controls="announcement-bar-newsletter">
@@ -143,12 +158,24 @@
         }
       ],
       "default": "left",
-      "info": "Text is always centered on mobile."
+      "info": "Text is always right-aligned on mobile."
+    },
+    {
+      "type": "text",
+      "id": "mobile_text",
+      "label": "Mobile text",
+      "default": "Announce something concise here"
     },
     {
       "type": "url",
       "id": "link",
       "label": "Link"
+    },
+    {
+      "type": "text",
+      "id": "link_title",
+      "label": "Link title",
+      "info": "Value of the title attribute on the link."
     },
     {
       "type": "header",
