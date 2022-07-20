@@ -118,10 +118,18 @@
                       <span class="search-bar__filter-active">{{ 'header.search.all_categories' | t }}</span> {%- render 'icon', icon: 'arrow-bottom' -%}
                     </label>
 
+                    {%- assign search_filter_order = section.settings.search_filter_order | split: ', ' -%}
+                    {%- assign product_types = '' -%}
+                    {%- for product_type in search_filter_order -%}
+                      {%- if shop.types contains product_type -%}
+                        {%- assign product_types = product_types | append: ', ' | append: product_type -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                    {%- assign product_types = product_types | split: ', ' | concat: shop.types | uniq -%}
                     <select id="search-product-type">
                       <option value="" selected="selected">{{ 'header.search.all_categories' | t }}</option>
 
-                      {%- for product_type in shop.types -%}
+                      {%- for product_type in product_types -%}
                         {%- if product_type != blank -%}
                           <option value="{{ product_type | escape }}">{{ product_type | escape }}</option>
                         {%- endif -%}
@@ -293,7 +301,7 @@
                   {%- if customer -%}
                     <div class="popover__inner popover__inner--no-padding">
                       <div class="popover__linklist">
-                        <a class="popover__link-item" href="{{ routes.account_url }}">{{ 'customer.general.orders' | t }}</a>
+                        <a class="popover__link-item" href="{{ routes.account_url }}">{{ 'customer.general.my_account' | t }}</a>
                         <a class="popover__link-item" href="{{ routes.account_addresses_url }}">{{ 'customer.general.addresses' | t }}</a>
                         <a class="popover__link-item" href="{{ routes.account_logout_url }}" data-no-instant>{{ 'customer.general.logout' | t }}</a>
                       </div>
@@ -612,6 +620,12 @@
       "label": "Show search filter",
       "default": true,
       "info": "Refine by product type. [Learn more](https://support.maestrooo.com/article/184-navigation-filtering-search-results-by-product-type)"
+    },
+    {
+      "type": "text",
+      "id": "search_filter_order",
+      "label": "Search filter order",
+      "info": "Separate each filter by a comma. Undefined filters will be appended in alphabetical order."
     },
     {
       "type": "link_list",
