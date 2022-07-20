@@ -3,7 +3,7 @@
     {%- capture block_list -%}
       <div class="block-list">
         {%- for block in section.blocks -%}
-          <div id="block-{{ block.id }}" class="block-list__item {% if section.settings.expand_items %}block-list__item--grow{% endif %} 1/2--tablet-and-up 1/3--desk" {{ block.shopify_attributes }}>
+          <div id="block-{{ block.id }}" class="block-list__item {% if section.settings.expand_items %}block-list__item--grow{% endif %} 1/2--tablet-and-up 1/3--lap-and-up" {{ block.shopify_attributes }}>
             <a {% if block.settings.button_link %}href="{{ block.settings.button_link }}"{% endif %} class="promo-block promo-block--{{ block.settings.content_position | replace: '_', '-' }} {% if block.settings.show_overlay %}promo-block--overlay{% endif %} promo-block--{{ section.settings.section_size }}">
               {%- if block.settings.image -%}
                 {%- if block.settings.stretch_image -%}

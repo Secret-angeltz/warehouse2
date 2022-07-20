@@ -12004,9 +12004,9 @@ shopify-payment-terms {
 }
 
 .offer-item__image-wrapper {
-  min-width: 70px;
-  max-width: 70px;
-  margin-bottom: 14px;
+  min-width: 100px; // LS theme change
+  max-width: 100px; // LS theme change
+  margin: 0 auto 14px auto; // LS theme change
 }
 
 .offer-item__title {

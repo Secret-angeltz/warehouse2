@@ -1,1 +1,458 @@
-{"sections":{"slideshow":{"type":"slideshow","blocks":{"slide-1":{"type":"image","settings":{}},"slide-2":{"type":"image","settings":{}}},"block_order":["slide-1","slide-2"],"settings":{}},"featured-collection":{"type":"featured-collection","settings":{}},"collection-list":{"type":"collection-list","blocks":{"collection-1":{"type":"collection","settings":{}},"collection-2":{"type":"collection","settings":{}},"collection-3":{"type":"collection","settings":{}},"collection-4":{"type":"collection","settings":{}},"collection-5":{"type":"collection","settings":{}},"collection-6":{"type":"collection","settings":{}}},"block_order":["collection-1","collection-2","collection-3","collection-4","collection-5","collection-6"],"settings":{}},"newsletter":{"type":"newsletter","settings":{}},"featured-product":{"type":"featured-product","blocks":{"product-meta":{"type":"product_meta","settings":{}},"featured-description":{"type":"featured_description","settings":{}},"variant-selector":{"type":"variant_selector","settings":{}},"buy-buttons":{"type":"buy_buttons","settings":{}}},"block_order":["product-meta","featured-description","variant-selector","buy-buttons"],"settings":{}},"blog-posts":{"type":"blog-posts","settings":{}},"text-with-icons":{"type":"text-with-icons","blocks":{"icon-1":{"type":"item","settings":{"icon":"bi-delivery","title":"Free delivery worldwide"}},"icon-2":{"type":"item","settings":{"icon":"bi-returns","title":"Satisfied or refunded"}},"icon-3":{"type":"item","settings":{"icon":"bi-customer-support","title":"Top-notch support"}},"icon-4":{"type":"item","settings":{"icon":"bi-secure-payment","title":"Secure payments"}}},"block_order":["icon-1","icon-2","icon-3","icon-4"],"settings":{}}},"order":["slideshow","featured-collection","collection-list","newsletter","featured-product","blog-posts","text-with-icons"]}
+{
+  "sections": {
+    "slideshow": {
+      "type": "slideshow",
+      "blocks": {
+        "slide-0": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/slideshow-hydronics_desktop.jpg",
+            "mobile_image": "shopify://shop_images/slideshow-hydronics_mobile.jpg",
+            "show_overlay": true,
+            "overlay_opacity": 50,
+            "text_color": "#ffffff",
+            "title": "Pump Systems Specialists",
+            "content": "Experienced distributors of hydronic pumps and system components.",
+            "content_position": "bottomLeft",
+            "button_background": "#009bd4",
+            "button_text_color": "#ffffff",
+            "button_text": "View Our Line Card",
+            "link": "shopify://pages/line-card"
+          }
+        },
+        "slide-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/valves-slider.jpg",
+            "mobile_image": "shopify://shop_images/valves-slider_mobile.jpg",
+            "show_overlay": true,
+            "overlay_opacity": 60,
+            "text_color": "#ffffff",
+            "title": "Valve & Control Experts",
+            "content": "Industry-leading distributors of valves and controls for commercial HVAC systems.",
+            "content_position": "bottomLeft",
+            "button_background": "#009bd4",
+            "button_text_color": "#ffffff",
+            "button_text": "View Our Line Card",
+            "link": "shopify://pages/line-card"
+          }
+        },
+        "c1e4b193-74ea-45e7-a047-2e6416e9410f": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/banner-1.jpg",
+            "mobile_image": "shopify://shop_images/mobile-1.jpg",
+            "show_overlay": true,
+            "overlay_opacity": 30,
+            "text_color": "#ffffff",
+            "title": "Data-Driven Operations",
+            "content": "Cutting-edge practitioners of data analytics.",
+            "content_position": "middle_center",
+            "button_background": "#009bd4",
+            "button_text_color": "#ffffff",
+            "button_text": "View Our Line Card",
+            "link": "shopify://pages/line-card"
+          }
+        }
+      },
+      "block_order": [
+        "slide-0",
+        "slide-1",
+        "c1e4b193-74ea-45e7-a047-2e6416e9410f"
+      ],
+      "settings": {
+        "edge_to_edge": true,
+        "section_size": "preserve_ratio",
+        "carousel_effect": "fade",
+        "autoplay": true,
+        "cycle_speed": 6
+      }
+    },
+    "pillars": {
+      "type": "rich-text",
+      "settings": {
+        "text_width": "narrow",
+        "title": "Liberty Supply Pillars",
+        "content": "<p>We are a <a href=\"/pages/team\" title=\"Meet the Team\">customer-centric team</a> focused on hydronic and steam systems for commercial and industrial facilities. <a href=\"/pages/story\" title=\"Our Story\">Our story</a> is rooted in five <a href=\"/pages/principles\" title=\"Core Principles\">core principles</a>. Our approach is built on three foundational pillars:</p>",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "three-pillars": {
+      "type": "promotion-list",
+      "blocks": {
+        "16299843312122bbe4-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/knowledge_bg.jpg",
+            "show_overlay": true,
+            "overlay_opacity": 17,
+            "stretch_image": true,
+            "background": "#e1e3e4",
+            "heading_color": "#1c3c70",
+            "text_color": "#5b656b",
+            "title": "1. Knowledge",
+            "content": "<p>Our team of experts never stops learning.</p>",
+            "content_position": "middle_center",
+            "button_background": "#009bd4",
+            "button_text_color": "#ffffff",
+            "button_text": "Experience & Training",
+            "button_link": "shopify://pages/value-proposition"
+          }
+        },
+        "16299843312122bbe4-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/communication_bg.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#e1e3e4",
+            "heading_color": "#1c3c70",
+            "text_color": "#5b656b",
+            "title": "2. Communication",
+            "content": "<p>We proactively keep you up to date.</p>",
+            "content_position": "middle_center",
+            "button_background": "#009bd4",
+            "button_text_color": "#ffffff",
+            "button_text": "Clarity & Security",
+            "button_link": "shopify://pages/value-proposition"
+          }
+        },
+        "16299843312122bbe4-2": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/speed_bg.jpg",
+            "show_overlay": false,
+            "overlay_opacity": 50,
+            "stretch_image": true,
+            "background": "#e1e3e4",
+            "heading_color": "#1c3c70",
+            "text_color": "#5b656b",
+            "title": "3. Speed",
+            "content": "<p>Hitting your deadlines is critical to our team.</p>",
+            "content_position": "middle_center",
+            "button_background": "#009bd4",
+            "button_text_color": "#ffffff",
+            "button_text": "On Time & On Schedule",
+            "button_link": "shopify://pages/value-proposition"
+          }
+        }
+      },
+      "block_order": [
+        "16299843312122bbe4-0",
+        "16299843312122bbe4-1",
+        "16299843312122bbe4-2"
+      ],
+      "settings": {
+        "expand_items": false,
+        "section_size": "small",
+        "stack_mobile": false
+      }
+    },
+    "approach-to-distribution": {
+      "type": "rich-text",
+      "settings": {
+        "text_width": "narrow",
+        "title": "Our Approach To Distribution",
+        "content": "<p>We believe that relationships are built by hard work and consistently delivering value. No exceptions. Our team maintains the mindset that with each transaction we start back at zero.</p>",
+        "button_text": "Our products",
+        "button_link": ""
+      }
+    },
+    "testimonials": {
+      "type": "offers",
+      "blocks": {
+        "ab9688ff-e899-4a4a-91ea-23ee315ddfba": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/Egan-Logo-Web-Ready.png",
+            "title": "",
+            "content": "<p><em>\"Liberty Supply is highly responsive to our pricing requests and willing to go the extra mile to provide excellent customer service. They are a pleasure to work with and we look forward to continuing to do business with them.\"</em></p>"
+          }
+        },
+        "164556110077fb6b50-1": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/modern-logo-square.jpg",
+            "title": "",
+            "content": "<p><em>“Liberty Supply has excellent service and competitive prices. They always respond quickly and communicate well.”</em></p>"
+          }
+        },
+        "164556110077fb6b50-0": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/climate-makers-logo.png",
+            "title": "",
+            "content": "<p><em>“We at Climate Makers greatly appreciate the sincere dedication to customer service provided by Liberty Supply. Their team has been quick to provide technical resources and supply chain solutions in a challenging time for our service industry. We look forward to enhancing our continued partnership.”</em></p>"
+          }
+        },
+        "00fad494-1c26-43b0-921d-169c1098de2c": {
+          "type": "offer",
+          "settings": {
+            "image": "shopify://shop_images/1519912112232.jpg",
+            "title": "",
+            "content": "<p><em>\"Liberty Supply is bar none with CLEAR communication of what's needed and the expectation of when it will arrive. The days are over of endless phone calls wondering where your parts are and if they even got ordered in the first place... 7 months and endless parts trying to get a pump to stop leaking. One phone call to Liberty and what do you know... the problem is fixed... If your time is not valued, call the other guys. If you take pride in what you do. Do yourself a favor and call Liberty Supply!\"</em></p>"
+          }
+        }
+      },
+      "block_order": [
+        "ab9688ff-e899-4a4a-91ea-23ee315ddfba",
+        "164556110077fb6b50-1",
+        "164556110077fb6b50-0",
+        "00fad494-1c26-43b0-921d-169c1098de2c"
+      ],
+      "settings": {
+        "items_per_row": 2,
+        "stack_mobile": false
+      }
+    },
+    "collection-list": {
+      "type": "collection-list",
+      "blocks": {
+        "collection-5": {
+          "type": "collection",
+          "settings": {
+            "collection": "frontpage",
+            "image": "shopify://shop_images/nibco.jpg",
+            "link": "shopify://pages/nibco"
+          }
+        },
+        "collection-0": {
+          "type": "collection",
+          "settings": {
+            "collection": "frontpage",
+            "image": "shopify://shop_images/bell-gossett_square-logo.jpg",
+            "link": "shopify://pages/bell-gossett"
+          }
+        },
+        "collection-1": {
+          "type": "collection",
+          "settings": {
+            "collection": "frontpage",
+            "image": "shopify://shop_images/taco_square-logo.jpg",
+            "link": "shopify://pages/taco"
+          }
+        },
+        "collection-2": {
+          "type": "collection",
+          "settings": {
+            "collection": "frontpage",
+            "image": "shopify://shop_images/armstrong-fluid-technology_square-logo.jpg",
+            "link": "shopify://pages/armstrong-fluid-technology"
+          }
+        },
+        "collection-3": {
+          "type": "collection",
+          "settings": {
+            "collection": "frontpage",
+            "image": "shopify://shop_images/grundfos_square-logo.jpg",
+            "link": "shopify://pages/grundfos"
+          }
+        },
+        "collection-4": {
+          "type": "collection",
+          "settings": {
+            "collection": "frontpage",
+            "image": "shopify://shop_images/shipco_square-logo.jpg",
+            "link": "shopify://pages/shipco"
+          }
+        }
+      },
+      "block_order": [
+        "collection-5",
+        "collection-0",
+        "collection-1",
+        "collection-2",
+        "collection-3",
+        "collection-4"
+      ],
+      "settings": {
+        "title": "Liberty Supply Lines",
+        "link_title": "View all",
+        "link": "shopify://pages/line-card",
+        "round_images": true,
+        "show_collection_title": false
+      }
+    },
+    "blog-posts": {
+      "type": "blog-posts",
+      "settings": {
+        "blog": "hvac-news",
+        "blog_posts_count": 3,
+        "title": "Commercial HVAC News",
+        "link_title": "View all",
+        "show_category": true,
+        "show_author": true,
+        "show_date": true,
+        "show_excerpt": true,
+        "stack_mobile": false
+      }
+    },
+    "culture-of-growth": {
+      "type": "rich-text",
+      "settings": {
+        "text_width": "narrow",
+        "title": "Our Culture Of Growth",
+        "content": "<p>Liberty Supply is an environment built on continuous improvement. <a href=\"/pages/team\" title=\"Meet the Team\">Our team</a> embodies a growth-mindset that challenges each individual to realize what they are capable of. More in <a href=\"/pages/story\" title=\"Our Story\">our story</a>.</p>",
+        "button_text": "Our products",
+        "button_link": ""
+      }
+    },
+    "mosaic": {
+      "type": "mosaic",
+      "blocks": {
+        "1626739051fe7bcec6-2": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/bobcat.jpg",
+            "show_overlay": true,
+            "overlay_opacity": 35,
+            "background": "#f3f4f4",
+            "text_color": "#ffffff",
+            "title": "In the field...",
+            "content": "visiting customer facilities.",
+            "content_position": "top_left",
+            "button_background": "#009bd4",
+            "button_text_color": "#f3f4f4",
+            "button_text": "Read more",
+            "link": ""
+          }
+        },
+        "1626739051fe7bcec6-1": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/respect-is-earned_1000x_copy.jpg",
+            "show_overlay": true,
+            "overlay_opacity": 60,
+            "background": "#f3f4f4",
+            "text_color": "#ffffff",
+            "title": "I am not your boss...",
+            "content": "Being a boss means nothing. Being a leader means everything.",
+            "content_position": "top_left",
+            "button_background": "#009bd4",
+            "button_text_color": "#ffffff",
+            "button_text": "Read more",
+            "link": "shopify://blogs/company-blog/i-am-not-your-boss"
+          }
+        },
+        "1626739051fe7bcec6-0": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/PXL_20220520_155927066.jpg",
+            "show_overlay": true,
+            "overlay_opacity": 35,
+            "background": "#f3f4f4",
+            "text_color": "#ffffff",
+            "title": "Continuous Training...",
+            "content": "on the products our customers need most.",
+            "content_position": "top_left",
+            "button_background": "#009bd4",
+            "button_text_color": "#f3f4f4",
+            "button_text": "",
+            "link": ""
+          }
+        },
+        "1626739051fe7bcec6-4": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/olivia-in-EATON-truck.jpg",
+            "show_overlay": true,
+            "overlay_opacity": 35,
+            "background": "#f3f4f4",
+            "text_color": "#ffffff",
+            "title": "Industrial Controls in Motion...",
+            "content": "on the EATON traveling demo trailer.",
+            "content_position": "top_left",
+            "button_background": "#009bd4",
+            "button_text_color": "#ffffff",
+            "button_text": "Read more",
+            "link": "shopify://blogs/company-blog/exploring-the-eaton-truck-industrial-controls-in-motion"
+          }
+        },
+        "1626739051fe7bcec6-3": {
+          "type": "item",
+          "settings": {
+            "image": "shopify://shop_images/istockphoto-1188605223-640x640.jpg",
+            "show_overlay": true,
+            "overlay_opacity": 30,
+            "background": "#f3f4f4",
+            "text_color": "#ffffff",
+            "title": "Player/Coach Balance...",
+            "content": "in the workplace.",
+            "content_position": "bottom_left",
+            "button_background": "#009bd4",
+            "button_text_color": "#f3f4f4",
+            "button_text": "Read more",
+            "link": "shopify://blogs/company-blog/on-player-coach-balance"
+          }
+        }
+      },
+      "block_order": [
+        "1626739051fe7bcec6-2",
+        "1626739051fe7bcec6-1",
+        "1626739051fe7bcec6-0",
+        "1626739051fe7bcec6-4",
+        "1626739051fe7bcec6-3"
+      ],
+      "settings": {
+        "section_size": "small"
+      }
+    },
+    "whats-moving": {
+      "type": "featured-collection",
+      "settings": {
+        "collection": "whats-moving",
+        "title": "",
+        "products_count": 12,
+        "layout": "vertical",
+        "stack_products": false,
+        "show_quick_buy": false,
+        "link_title": "View all",
+        "link_url": ""
+      }
+    },
+    "map": {
+      "type": "map",
+      "blocks": {
+        "liberty-supply": {
+          "type": "store",
+          "settings": {
+            "title": "Liberty Supply",
+            "address": "<p>13821 Industrial Park Blvd<br/>Minneapolis, MN 55441</p>",
+            "hours": "<p>Phone: <a href=\"tel:8444480880\" title=\"tel:8444480880\">844-448-0880</a><br/>Fax: 844-448-0881</p><p>Monday - Friday: 6 a.m. – 6 p.m.<br/>Saturday: As Needed<br/>Sunday: Closed</p>",
+            "map_address": "13821 Industrial Park Blvd, Minneapolis, MN 55441"
+          }
+        }
+      },
+      "block_order": ["liberty-supply"],
+      "settings": {
+        "title": "",
+        "map_link_label": "Get directions",
+        "api_key": "AIzaSyDQE6b29Vc8Ld63Lu0_SeluvWJBr5a5rH0",
+        "zoom": 15,
+        "draggable_map": true,
+        "show_map_controls": true,
+        "map_style": "standard"
+      }
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {}
+    }
+  },
+  "order": [
+    "slideshow",
+    "pillars",
+    "three-pillars",
+    "approach-to-distribution",
+    "testimonials",
+    "collection-list",
+    "blog-posts",
+    "culture-of-growth",
+    "mosaic",
+    "whats-moving",
+    "map",
+    "recently-viewed-products"
+  ]
+}
