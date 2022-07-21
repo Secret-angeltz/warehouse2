@@ -11837,6 +11837,7 @@ shopify-payment-terms {
   transition: background 0.25s ease-in-out, color 0.25s ease-in-out, border 0.25s ease-in-out;
   background: var(--primary-button-background);
   color: var(--primary-button-text-color);
+  margin-top: 20px; // LS theme change
 }
 
 .shopify-challenge__button.shopify-challenge__button:hover {
