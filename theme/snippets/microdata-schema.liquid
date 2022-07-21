@@ -58,6 +58,12 @@ or change the format of some info
     "name": {{ product.title | json }},
     "description": {{ product.description | strip_html | json }},
     "category": {{ product.type | json }},
+    {%- unless product.metafields.erp.mpn == blank %}
+      "mpn": {{ product.metafields.erp.mpn | json }},
+    {%- endunless -%}
+    {%- unless product.metafields.erp.model == blank %}
+      "model": {{ product.metafields.erp.model | json }},
+    {%- endunless %}
     "url": "{{ product.url }}",
     "sku": {{ product.selected_or_first_available_variant.sku | json }},
     "image": {
@@ -67,7 +73,14 @@ or change the format of some info
       "name": {{ page_image.alt | json }},
       "width": "1024",
       "height": "1024"
-    }
+    },
+    {%- if product.selected_or_first_available_variant.weight > 0 -%}
+      "weight": {
+        "@type": "QuantitativeValue",
+        "value": {{ product.selected_or_first_available_variant.weight | weight_with_unit | remove: product.selected_or_first_available_variant.weight_unit | strip | json }},
+        "unitText": {{ product.selected_or_first_available_variant.weight_unit | json }}
+      }      
+    {%- endif -%}
   {%- endcapture -%}
 {%- elsif request.page_type == 'article' -%}
   {%- capture main_entity_microdata -%}
@@ -92,7 +105,8 @@ or change the format of some info
       "@type": "Person",
       "name": "{{ article.user.first_name | escape }} {{ article.user.last_name | escape }}",
       "givenName": {{ article.user.first_name | json }},
-      "familyName": {{ article.user.last_name | json }}
+      "familyName": {{ article.user.last_name | json }},
+      "url": "{{ shop.url | append: '/pages/team' }}"
     },
     "publisher": {
       "@type": "Organization",
@@ -110,107 +124,155 @@ or change the format of some info
       {%- endfor -%}
     ]
   {%- endcapture -%}
+{%- elsif request.page_type == 'index' -%}
+  {%- capture main_entity_microdata -%}
+    "@type": "LocalBusiness",
+    "name": {{ shop.name | json }},
+    "legalName": {{ shop.address.company | json }},
+    "description": {{ shop.description | json }},
+    "logo": "{{ page_image | image_url: width: 1024 }}",
+    "url": "{{ shop.url }}",
+    "email": "{{ shop.email }}",
+    "telephone": "{{ shop.phone }}",
+    {%- unless shop.metafields.contacts.fax == blank %}
+      "faxNumber": {{ shop.metafields.contacts.fax | json }},
+    {%- endunless %}
+    "openingHours": "Mo,Tu,We,Th,Fr 06:00-18:00",
+    "paymentAccepted": "Cash, Credit Card, Net30",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": {{ shop.address.city | json }},
+      "addressRegion": {{ shop.address.province | json }},
+      "postalCode": {{ shop.address.zip | json }},
+      "streetAddress": {{ shop.address.summary | json }}
+    },
+    "sameAs": [
+      "https://www.facebook.com/LibertySupplyMN",
+      "https://twitter.com/LibertySupplyMN",
+      "https://www.instagram.com/libertysupplymn",
+      "https://www.youtube.com/channel/UCgQhxZRWYmzmBEZrg_Y8GgA",
+      "https://www.linkedin.com/company/libertysupply"
+    ],
+    {%- assign potential_action_target = shop.url | append: '/pages/search-results-page' | append: '?q={search_term_string}' -%}
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {{ potential_action_target | json }},
+      "query-input": "required name=search_term_string"
+    }
+  {%- endcapture -%}
 {%- endif -%}
 
-{%- capture breadcrumb_entity_microdata -%}
-  "@type": "BreadcrumbList",
-  "itemListElement": [{
-      "@type": "ListItem",
-      "position": 1,
-      "name": {{ 'general.breadcrumb.home' | t | json }},
-      "item": "{{ shop.url }}"
-    }
 
-    {%- if request.page_type == 'product' -%}
-      {%- if collection -%}
-        ,{
+{%- liquid 
+  assign page_types_with_custom_breadcrumbs = "product|collection|list-collections" | split: '|'
+  assign templates_with_custom_breadcrumbs = "page.ls-catalog-guide" | split: '|'
+-%}
+{%- unless
+    page_types_with_custom_breadcrumbs contains request.page_type or 
+    templates_with_custom_breadcrumbs contains template
+-%}
+  {%- capture breadcrumb_entity_microdata -%}
+      {%- if request.page_type == 'product' -%}
+        {%- if collection -%}
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@id": "{{ shop.url }}{{ collection.url }}",
+              "name": {{ collection.title | json }}
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "item": {
+              "@id": "{{ shop.url }}{{ product.url }}",
+              "name": {{ product.title | json }}
+            }
+          }
+        {%- else -%}
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "item": {
+              "@id": "{{ shop.url }}{{ product.url }}",
+              "name": {{ product.title | json }}
+            }
+          }
+        {%- endif -%}
+      {%- elsif request.page_type == 'collection' -%}
+        {
           "@type": "ListItem",
           "position": 2,
-          "name": {{ collection.title | json }},
-          "item": "{{ shop.url }}{{ collection.url }}"
-        }, {
+          "item": {
+            "@id": "{{ shop.url }}{{ collection.url }}",
+            "name": {{ collection.title | json }}
+          }
+        }
+      {%- elsif request.page_type == 'blog' -%}
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@id": "{{ shop.url }}{{ blog.url }}",
+            "name": {{ blog.title | json }}
+          }
+        }
+      {%- elsif request.page_type == 'article' -%}
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "item": {
+            "@id": "{{ shop.url }}{{ blog.url }}",
+            "name": {{ blog.title | json }}
+          }
+        },
+        {
           "@type": "ListItem",
           "position": 3,
-          "name": {{ product.title | json }},
-          "item": "{{ shop.url }}{{ product.url }}"
+          "item": {
+            "@id": "{{ shop.url }}{{ article.url }}",
+            "name": {{ article.title | json }}
+          }
         }
-      {%- else -%}
-        ,{
+      {%- elsif request.page_type == 'page' -%}
+        {
           "@type": "ListItem",
           "position": 2,
-          "name": {{ product.title | json }},
-          "item": "{{ shop.url }}{{ product.url }}"
+          "item": {
+            "@id": "{{ shop.url }}{{ page.url }}",
+            "name": {{ page.title | json }}
+          }
         }
       {%- endif -%}
-    {%- elsif request.page_type == 'collection' -%}
-        ,{
-          "@type": "ListItem",
-          "position": 2,
-          "name": {{ collection.title | json }},
-          "item": "{{ shop.url }}{{ collection.url }}"
-        }
-    {%- elsif request.page_type == 'blog' -%}
-        ,{
-          "@type": "ListItem",
-          "position": 2,
-          "name": {{ blog.title | json }},
-          "item": "{{ shop.url }}{{ blog.url }}"
-        }
-    {%- elsif request.page_type == 'article' -%}
-        ,{
-          "@type": "ListItem",
-          "position": 2,
-          "name": {{ blog.title | json }},
-          "item": "{{ shop.url }}{{ blog.url }}"
-        }, {
-          "@type": "ListItem",
-          "position": 3,
-          "name": {{ blog.title | json }},
-          "item": "{{ shop.url }}{{ article.url }}"
-        }
-    {%- elsif request.page_type == 'page' -%}
-       ,{
-          "@type": "ListItem",
-          "position": 2,
-          "name": {{ page.title | json }},
-          "item": "{{ shop.url }}{{ page.url }}"
-        }
-    {%- endif -%}
-  ]
-{%- endcapture -%}
+  {%- endcapture -%}
+{%- endunless -%}
 
 {% if main_entity_microdata != blank %}
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    {{ main_entity_microdata }}
-  }
+    {
+      "@context": "https://schema.org",
+      {{ main_entity_microdata }}
+    }
   </script>
 {% endif %}
 
-{% if breadcrumb_entity_microdata != blank %}
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    {{ breadcrumb_entity_microdata }}
-  }
-  </script>
-{% endif %}
-
-{%- if request.page_type == 'index' -%}
-  {%- assign potential_action_target = request.origin | append: routes.search_url | append: "?q={search_term_string}" -%}
-
+{%- if breadcrumb_entity_microdata != blank -%}
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": {{ shop.name | json }},
-      "url": {{ shop.url | append: page.url | json }},
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": {{ potential_action_target | json }},
-        "query-input": "required name=search_term_string"
-      }
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "item": {
+            "@id": "{{ shop.url }}",
+            "name": {{ 'general.breadcrumb.home' | t | json }}
+          }
+        },
+        {{ breadcrumb_entity_microdata }}
+      ]
     }
   </script>
 {%- endif -%}
