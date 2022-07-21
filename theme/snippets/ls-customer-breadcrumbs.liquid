@@ -1,25 +1,62 @@
-<nav aria-label="{{ 'general.breadcrumb.title' | t }}" class="breadcrumb">
-  <ol class="breadcrumb__list" role="list">
-    <li class="breadcrumb__item">
-      <a class="breadcrumb__link link" href="{{ routes.root_url }}">{{ 'general.breadcrumb.home' | t }}</a> {%- render 'icon', icon: 'arrow-right' -%}
+<nav aria-label='{{ 'general.breadcrumb.title' | t }}' class='breadcrumb'>
+  <ol class='breadcrumb__list' role='list'>
+    <li class='breadcrumb__item'>
+      <a class='breadcrumb__link link' href='{{ routes.root_url }}'>
+        {{- 'general.breadcrumb.home' | t -}}
+      </a>
+      {%- render 'icon', icon: 'arrow-right' -%}
     </li>
-    {%- if request.page_type == 'customers/account' -%}
-      <li class="breadcrumb__item">
-        <span class="breadcrumb__link" aria-current="page">{{ 'customer.general.my_account' | t }}</span>
-      </li>
-    {%- else -%}
-      <li class="breadcrumb__item">
-        <a class="breadcrumb__link link" href="{{ routes.account_url }}">{{ 'customer.general.my_account' | t }}</a> {%- render 'icon', icon: 'arrow-right' -%}
-      </li>
-      {%- if request.page_type == 'customers/order' -%}
-        <li class="breadcrumb__item">
-          <span class="breadcrumb__link" aria-current="page">{{ current_page_label | t: order_number: order.name }}</span>
+
+    {%- assign page_type = request.page_type -%}
+    {%- case page_type -%}
+      {%- when 'customers/account' -%}
+        <li class='breadcrumb__item'>
+          <a
+            class='breadcrumb__link'
+            href='{{ routes.account_url }}'
+            aria-current='page'
+          >
+            {{- 'customer.general.my_account' | t -}}
+          </a>
         </li>
-      {%- else -%}
-        <li class="breadcrumb__item">
-          <span class="breadcrumb__link" aria-current="page">{{ current_page_label | t }}</span>
+      {%- when 'customers/addresses' -%}
+        <li class='breadcrumb__item'>
+          <a
+            class='breadcrumb__link'
+            href='{{ routes.account_url }}'
+          >
+            {{- 'customer.general.my_account' | t -}}
+          </a>
+          {%- render 'icon', icon: 'arrow-right' -%}
         </li>
-      {%- endif -%}
-    {%- endif -%}
+        <li class='breadcrumb__item'>
+          <a
+            class='breadcrumb__link link'
+            href='{{ routes.account_addresses_url }}'
+            aria-current='page'
+          >
+            {{- 'customer.general.addresses' | t -}}
+          </a>
+        </li>
+      {%- when 'customers/order' -%}
+        <li class='breadcrumb__item'>
+          <a
+            class='breadcrumb__link'
+            href='{{ routes.account_url }}'
+          >
+            {{- 'customer.general.my_account' | t -}}
+          </a>
+          {%- render 'icon', icon: 'arrow-right' -%}
+        </li>
+        <li class='breadcrumb__item'>
+          <a
+            class='breadcrumb__link link'
+            href='{{ request.path }}'
+            aria-current='page'
+          >
+            {{- 'customer.order.order_number' | t: order_number: order.name -}}
+          </a>
+        </li>
+    {%- endcase -%}
   </ol>
 </nav>
