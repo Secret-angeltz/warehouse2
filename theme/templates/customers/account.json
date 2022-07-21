@@ -1,1 +1,13 @@
-{"sections":{"main":{"type":"main-customers-account","settings":{}}},"order":["main"]}
+{
+  "sections": {
+    "main": {
+      "type": "main-customers-account",
+      "settings": {"no_orders_url": "shopify://pages/line-card"}
+    },
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {}
+    }
+  },
+  "order": ["main", "recently-viewed-products"]
+}
