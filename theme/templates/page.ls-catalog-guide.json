@@ -1,0 +1,7 @@
+{
+  "sections": {
+    "main": {"type": "ls-main-catalog-guide", "settings": {}},
+    "newsletter": {"type": "newsletter", "settings": {}}
+  },
+  "order": ["main", "newsletter"]
+}
