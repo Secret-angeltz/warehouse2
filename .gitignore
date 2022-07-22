@@ -17,7 +17,7 @@ node_modules
 npm-debug.log
 theme/assets/ls-*.js
 theme/assets/mix-manifest.json
-theme/assets/theme.css
+theme/assets/theme.*
 theme/config/settings_data.json
 theme/locales
 theme/templates/robots.txt.liquid
