@@ -57,6 +57,7 @@
     --link-color               : {{ settings.link_color }};
     --link-color-hover         : {{ settings.link_color | color_darken: 15 }};
     --background               : {{ settings.background }};
+    --background-rgb           : {{ settings.background | color_extract: 'red' }}, {{ settings.background | color_extract: 'green' }}, {{ settings.background | color_extract: 'blue' }};
     --secondary-background     : {{ settings.secondary_background }};
     --secondary-background-rgb : {{ settings.secondary_background | color_extract: 'red' }}, {{ settings.secondary_background | color_extract: 'green' }}, {{ settings.secondary_background | color_extract: 'blue' }};
     --accent-background        : {{settings.accent_color | color_modify: 'alpha', 0.08 | color_desaturate: 60 }};

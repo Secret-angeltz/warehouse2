@@ -18594,7 +18594,7 @@
             var expandableText = expandableButton.querySelector('.expandable-content__toggle-text');
             expandableText.innerHTML = expandableText.getAttribute('data-view-more'); // We also have to scroll back to the top to preserve scroll position
 
-            var parentCard = parentSection.closest('.card');
+            var parentCard = parentSection.closest('.card') || parentSection.closest('.ls-expandable-context'); // LS theme change
 
             if (parentCard) {
               var amountToScroll = parentCard.getBoundingClientRect().top - 15 - parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-height'));
