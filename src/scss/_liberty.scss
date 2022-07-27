@@ -256,24 +256,33 @@
  * --------------------------------------------------------------------
  */
 
-[data-section-type='list-collections'] .page__content.expandable-content {
-  max-width: 680px;
-  margin: 0 auto 35px auto;
+.page__content.expandable-content,
+.collection__description.expandable-content {
   padding-bottom: 16px;
 }
 
-[data-section-type='list-collections'] .expandable-content[aria-expanded] {
+.page__content.expandable-content {
+  max-width: 800px;
+  margin: -10px auto 20px auto;
+}
+
+.page__content.expandable-content[aria-expanded],
+.collection__description.expandable-content[aria-expanded] {
   max-height: 145px;
 }
 
-[data-section-type='list-collections'] .expandable-content__toggle {
+.page__content .expandable-content__toggle,
+.collection .expandable-content__toggle {
   padding-left: 0;
   padding-right: 0;
-  padding: 8px 0;
+  // padding: 8px 0;
+}
+
+.page__content .expandable-content__toggle {
   background: var(--background);
 }
 
-[data-section-type='list-collections'] .expandable-content__toggle::before {
+.page__content .expandable-content__toggle::before {
   background: linear-gradient(
     rgba(var(--background-rgb), 0),
     rgba(var(--background-rgb), 0.4) 15%,

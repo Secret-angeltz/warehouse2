@@ -3,6 +3,7 @@
     "main": {
       "type": "main-collection",
       "settings": {
+        "collapse_collection_description": true,
         "show_quick_view": "list_grid",
         "show_filters": false
       }
