@@ -42,6 +42,13 @@
             "display_mode": "view_more"
           }
         },
+        "manufacturer": {
+          "type": "manufacturer",
+          "settings": {
+            "title": "About {{ product.vendor }}",
+            "display_mode": "view_more"
+          }
+        },
         "shipping_estimator": {
           "type": "shipping_estimator",
           "settings": {}
@@ -54,6 +61,7 @@
         "description",
         "specifications",
         "documents",
+        "manufacturer",
         "shipping_estimator"
       ],
       "settings": {
