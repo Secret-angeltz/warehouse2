@@ -1,3 +1,7 @@
+{%- assign page_title = [request.page_type].title -%}
+
+<p class="form__header">Please call <a href="tel:{{ shop.phone | remove: '-' }}" title="Call {{ shop.name }}" class="text--strong text--nowrap">{{ shop.phone }}</a> for {{ page_title }} pricing and availability, or complete the quote request form below.</p>
+
 {%- form 'contact', class: 'form' -%}
 
   {%- if form.posted_successfully? -%}
@@ -79,7 +83,7 @@
   </div>
 
   <div class="form__input-wrapper form__input-wrapper--labelled">
-    <textarea id="contact-form-message" name="contact[body]" rows="8" class="form__field form__field--textarea" aria-label="What are you looking for?" required></textarea>
+    <textarea id="contact-form-message" name="contact[body]" rows="5" class="form__field form__field--textarea" aria-label="What are you looking for?" required></textarea>
     <label for="contact-form-message" class="form__floating-label">What are you looking for?</label>
   </div>
 

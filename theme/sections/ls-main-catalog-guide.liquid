@@ -62,36 +62,52 @@
         </div>
       </div>
     {%- else -%}
-      {%- assign show_quote_request_form = true -%}
       <div class="empty-collection">
-        {%- assign thumbnail = page.metafields.marketing.thumbnail | first -%}
-        <header class="empty-collection__header {% if thumbnail == blank %}page__header--centered{% endif %}">
-          {%- unless thumbnail == blank -%}
-            <div class="empty-collection__thumbnail-container collection-block-item">
-              <div class="aspect-ratio" style="padding-bottom: 45%">
-                {%- liquid
-                  assign thumbnail_small = thumbnail.cloudinary_src | append: 'w_225'
-                  assign thumbnail_medium = thumbnail.cloudinary_src | append: 'w_400'
-                  assign thumbnail_large = thumbnail.cloudinary_src | append: 'w_750'
-                -%}
-                <div class="collection-block-item__image lazyload image--fade-in" data-bgset="{{ thumbnail_small }} 225w, {{ thumbnail_medium }} 400w, {{ thumbnail_large }} 750w" data-sizes="auto"></div>
+        {%- capture header -%}
+          {%- assign thumbnail = page.metafields.marketing.thumbnail | first -%}
+          <header class="empty-collection__header {% if thumbnail == blank %}page__header--centered{% endif %}">
+            {%- unless thumbnail == blank -%}
+              <div class="empty-collection__thumbnail-container collection-block-item">
+                <div class="aspect-ratio" style="padding-bottom: 45%">
+                  {%- liquid
+                    assign thumbnail_small = thumbnail.cloudinary_src | append: 'w_225'
+                    assign thumbnail_medium = thumbnail.cloudinary_src | append: 'w_400'
+                    assign thumbnail_large = thumbnail.cloudinary_src | append: 'w_750'
+                  -%}
+                  <div class="collection-block-item__image lazyload image--fade-in" data-bgset="{{ thumbnail_small }} 225w, {{ thumbnail_medium }} 400w, {{ thumbnail_large }} 750w" data-sizes="auto"></div>
+                </div>
+              </div>
+            {%- endunless -%}
+            <h1 class="empty-collection__heading heading h1">{{ page.title }}</h1>
+          </header>
+        {%- endcapture -%}
+        {%- if page.content != blank -%}
+          <div class="grid">
+            <div class="grid__cell 1/2--lap-and-up 2/3--wide">
+              {{ header }}
+              <div class="page__content rte">
+                {{ page.content }}
               </div>
             </div>
-          {%- endunless -%}
-          <h1 class="empty-collection__heading heading h1">{{ page.title }}</h1>
-        </header>
-        <div class="empty-collection__form-container">
-          <p class="form__header">{{ 'collection.general.empty' | t }} Please call <a href="tel:{{ shop.phone | remove: '-' }}" title="Call {{ shop.name }}" class="text--strong text--nowrap">{{ shop.phone }}</a>, or complete the quote request form below for immediate assistance.</p>
-          {%- render 'ls-collection-empty-form' -%}
-        </div>
+            <div class="grid__cell 1/2--lap-and-up 1/3--wide">
+              <div class="card card--highlight card--sticky">
+                <div class="card__section">
+                  <h2 class="heading h3 text--center">Quote Request</h2>
+                  {%- render 'ls-collection-empty-form' -%}
+                </div>
+              </div>
+            </div>
+          </div>
+        {%- else -%}
+          {{ header }}
+          <div class="empty-collection__form-container">
+            {%- render 'ls-collection-empty-form' -%}
+          </div>
+        {%- endif -%}
       </div>
     {%- endif -%}
   </div>
 </section>
-
-{%- if show_quote_request_form -%}
-  {% section 'ls-icon-bar' %}
-{%- endif -%}
 
 {%- capture alternate_page_slugs -%}
   {%- render 'ls-filter-active-handles' page_type: 'page', slugs: page.metafields.references.alternate_pages -%}
