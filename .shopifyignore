@@ -3,3 +3,4 @@
 assets/mix-manifest.json
 config/settings_data.json
 locales/*
+templates/*
