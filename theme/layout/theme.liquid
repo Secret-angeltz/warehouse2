@@ -105,7 +105,13 @@
     {%- endif -%}
 
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
-    <script src="{{ 'custom.js' | asset_url }}" defer></script>
+    <script src="{{ 'ls-global.js' | asset_url }}" defer></script>
+
+    {%- if request.page_type == 'customers/account' or request.page_type == 'customers/addresses' or request.page_type == 'customers/order' -%}
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" defer></script>
+      <script src="https://app.accentuate.io/dist/proxy.js" defer></script>
+      <script src="{{ 'ls-customers.js' | asset_url }}" defer></script>
+    {%- endif -%}
 
     {%- if request.page_type != 'cart' -%}
       <script>
