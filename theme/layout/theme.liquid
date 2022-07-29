@@ -105,6 +105,8 @@
     {%- endif -%}
 
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
+    {%- comment -%} Zendesk Chat script {%- endcomment -%}
+    <script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=d3c150f5-0b87-46da-a6cb-a4e088fae9cd" defer></script>
     <script src="{{ 'ls-global.js' | asset_url }}" defer></script>
 
     {%- if request.page_type == 'customers/account' or request.page_type == 'customers/addresses' or request.page_type == 'customers/order' -%}
