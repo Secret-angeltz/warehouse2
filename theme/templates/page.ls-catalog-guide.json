@@ -7,5 +7,5 @@
     },
     "newsletter": {"type": "newsletter", "settings": {}}
   },
-  "order": ["main", "recently-viewed-products", "newsletter"]
+  "order": ["main", "newsletter", "recently-viewed-products"]
 }

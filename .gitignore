@@ -12,7 +12,8 @@
 .env
 .env.*
 # ignore github workflows until closer to deployment
-.github
+.github/workflows/preproduction.yml
+.github/workflows/production.yml
 node_modules
 npm-debug.log
 theme/assets/custom.js
