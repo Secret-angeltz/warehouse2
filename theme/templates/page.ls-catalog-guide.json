@@ -1,7 +1,11 @@
 {
   "sections": {
     "main": {"type": "ls-main-catalog-guide", "settings": {}},
+    "recently-viewed-products": {
+      "type": "recently-viewed-products",
+      "settings": {}
+    },
     "newsletter": {"type": "newsletter", "settings": {}}
   },
-  "order": ["main", "newsletter"]
+  "order": ["main", "recently-viewed-products", "newsletter"]
 }

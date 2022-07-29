@@ -1,26 +1,27 @@
 <section data-section-id="{{ section.id }}" data-section-type="list-collections">
-  <div class="container">
+  {%- capture child_page_slugs -%}
+    {%- render 'ls-filter-active-handles' page_type: 'page', slugs: page.metafields.references.child_pages -%}
+  {%- endcapture -%}
+  {%- liquid
+    assign child_page_slugs = child_page_slugs | strip | split: '|'
+    assign child_page_count = child_page_slugs | size
+  -%}
+
+  {%- capture child_collection_slugs -%}
+    {%- render 'ls-filter-active-handles' page_type: 'collection', slugs: page.metafields.references.child_collections -%}
+  {%- endcapture -%}      
+  {%- liquid
+    assign child_collection_slugs = child_collection_slugs | strip | split: '|'
+    assign child_collection_count = child_collection_slugs | size
+    assign child_associations_count = child_collection_count | plus: child_page_count
+  -%}
+
+  <div class="container {% if child_associations_count == 0 %}container--flush{% endif %}">
     <div class="page__sub-header{% if page.metafields.breadcrumbs.hide %} visually-hidden{% endif %}">
       {%- render 'ls-breadcrumbs', item: page -%}
     </div>
 
-    {%- capture child_page_slugs -%}
-      {%- render 'ls-filter-active-handles' page_type: 'page', slugs: page.metafields.references.child_pages -%}
-    {%- endcapture -%}
-    {%- liquid
-      assign child_page_slugs = child_page_slugs | strip | split: '|'
-      assign child_page_count = child_page_slugs | size
-    -%}
-
-    {%- capture child_collection_slugs -%}
-      {%- render 'ls-filter-active-handles' page_type: 'collection', slugs: page.metafields.references.child_collections -%}
-    {%- endcapture -%}      
-    {%- liquid
-      assign child_collection_slugs = child_collection_slugs | strip | split: '|'
-      assign child_collection_count = child_collection_slugs | size
-    -%}
-
-    {%- if child_page_count > 0 or child_collection_count > 0 -%}
+    {%- if child_associations_count > 0 -%}
       <div class="collection-list__section {% if page.content != blank %}ls-expandable-context{% endif %}">
         <header class="page__header page__header--stack page__header--centered">
           <h1 class="page__title heading h1">{{ page.title }}</h1>
@@ -85,7 +86,7 @@
           <div class="grid">
             <div class="grid__cell 1/2--lap-and-up 2/3--wide">
               {{ header }}
-              <div class="page__content rte">
+              <div class="page__content rte container--unflush">
                 {{ page.content }}
               </div>
             </div>
