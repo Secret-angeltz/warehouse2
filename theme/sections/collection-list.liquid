@@ -17,7 +17,7 @@
             {%- assign collection = block.settings.collection -%}
 
             <a href="{{ block.settings.link | default: collection.url | default: '#' }}" class="collection-item" data-collection-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
-              {%- unless collection == blank -%}
+              {%- unless block.settings.link == blank and collection == blank -%}
                 {%- assign collection_image = block.settings.image | default: collection.image | default: collection.products.first.featured_image -%}
 
                 <div class="collection-item__image-wrapper {% if section.settings.round_images %}collection-item__image-wrapper--rounded{% endif %}">

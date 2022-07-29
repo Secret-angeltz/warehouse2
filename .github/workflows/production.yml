@@ -1,0 +1,70 @@
+# The name of your workflow. GitHub displays the names of your workflows on your repository's actions page.
+# https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#name
+name: Deploy Production Theme
+
+# Required. The name of the GitHub event that triggers the workflow.
+# https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#on
+# https://docs.github.com/en/actions/learn-github-actions/events-that-trigger-workflows#manual-events
+on: workflow_dispatch
+
+# A workflow run is made up of one or more jobs. Jobs run in parallel by default.
+# https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#jobs
+jobs:
+  # Each job must have an id to associate with the job.
+  # https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#jobsjob_id
+  build:
+    # Required. The type of machine to run the job on. The machine can be either a GitHub-hosted runner or a self-hosted runner.
+    # https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#jobsjob_idruns-on
+    runs-on: ubuntu-latest
+
+    # A job contains a sequence of tasks called steps. Steps can run commands, run setup tasks, or run an action in your
+    # repository, a public repository, or an action published in a Docker registry.
+    # https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#jobsjob_idsteps
+    steps:
+      # Step 1: checkout branch in repository under $GITHUB_WORKSPACE so subsequent job steps can access it
+      # https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#jobsjob_idstepsname
+      - name: Checkout master branch
+        # https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#jobsjob_idstepsuses
+        uses: actions/checkout@v3
+        # https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#jobsjob_idstepswith
+        with:
+          # https://stackoverflow.com/questions/66117548/github-actions-issue-in-checkout-action
+          ref: "master"
+
+      # Step 2: setup Node.js environment with a specific version and cache NPM dependencies
+      # https://github.com/actions/setup-node
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+          cache: "npm"
+
+      # Step 3: install NPM dependencies directly from package-lock.json using `npm ci`
+      # https://www.voorhoede.nl/en/blog/super-fast-npm-install-on-github-actions/
+      - name: Install NPM dependencies
+        run: npm ci --ignore-scripts
+
+      # Step 4: compile and minify CSS and JS files by running build script in package.json
+      - name: Compile assets
+        run: npm run build
+
+      # Step 5: deploy branch to shopify store's theme
+      # https://github.com/pgrimaud/action-shopify
+      - name: Deploy master branch
+        uses: pgrimaud/action-shopify@master
+
+        # Sets environment variables for steps to use in the runner environment.
+        # https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#jobsjob_idstepsenv
+        env:
+          SHOPIFY_STORE_URL: libertysupplyprod.myshopify.com
+          SHOPIFY_PASSWORD: ${{ secrets.SHOPIFY_PRODUCTION_PASSWORD }}
+          SHOPIFY_THEME_ID: ${{ secrets.SHOPIFY_PRODUCTION_THEME_ID }}
+          THEME_PATH: ./theme/
+
+        # A map of the input parameters defined by the action. Each input parameter is a key/value pair.
+        # https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#jobsjob_idstepswith
+        with:
+          # A string that defines the inputs for a Docker container. GitHub passes the args to the container's ENTRYPOINT
+          # when the container starts up. An array of strings is not supported by this parameter.
+          # https://docs.github.com/en/actions/learn-github-actions/workflow-syntax-for-github-actions#jobsjob_idstepswithargs
+          args: --env=production --ignores=.shopifyignore --allow-live
