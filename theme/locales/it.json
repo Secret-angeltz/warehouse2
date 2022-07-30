@@ -140,7 +140,7 @@
       "title": "Pagina non trovata",
       "content": "La pagina che stai cercando non può essere trovata.",
       "search": "Ricerca nel negozio...",
-      "continue_shopping": "Clicca qui per continuare gli acquisti"
+      "continue_shopping": ""
     }
   },
 
@@ -410,11 +410,11 @@
       "previous_product": "Precedente",
       "next_product": "Successivo",
       "description": "Descrizione",
-      "specifications": "",
-      "documents": "",
-      "sku": "SKU:",
-      "mpn": "",
-      "model": "",
+      "specifications": "Specifiche",
+      "documents": "Documenti",
+      "sku": "SKU",
+      "mpn": "Numero di parte",
+      "model": "Modello",
       "share": "Condividi questo prodotto",
       "reviews": "Recensioni",
       "regular_price": "Prezzo",
@@ -529,10 +529,10 @@
   "contact": {
     "form": {
       "name": "Il tuo nome",
-      "first_name": "",
-      "last_name": "",
+      "first_name": "Nome di battesimo",
+      "last_name": "Cognome",
       "email": "Il tuo indirizzo email",
-      "phone": "",
+      "phone": "Numero di telefono",
       "message": "Il tuo messaggio",
       "submit": "Invia messaggio",
       "successfully_sent": "Il tuo messaggio è stato inviato con successo."

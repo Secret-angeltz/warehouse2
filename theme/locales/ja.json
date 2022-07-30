@@ -140,7 +140,7 @@
       "title": "ページが見つかりません",
       "content": "探しているページが見つかりません。",
       "search": "店舗で検索。。。",
-      "continue_shopping": "ここをクリックして買い物を続ける"
+      "continue_shopping": ""
     }
   },
 
@@ -410,11 +410,11 @@
       "previous_product": "前の",
       "next_product": "次",
       "description": "説明",
-      "specifications": "",
-      "documents": "",
-      "sku": "SKU:",
-      "mpn": "",
-      "model": "",
+      "specifications": "仕様",
+      "documents": "ドキュメント",
+      "sku": "SKU",
+      "mpn": "部品番号",
+      "model": "モデル",
       "share": "この製品をシェアーする",
       "reviews": "レビュー",
       "regular_price": "通常価格",
@@ -529,10 +529,10 @@
   "contact": {
     "form": {
       "name": "お名前",
-      "first_name": "",
-      "last_name": "",
+      "first_name": "ファーストネーム",
+      "last_name": "苗字",
       "email": "メールアドレス",
-      "phone": "",
+      "phone": "電話番号",
       "message": "お問い合わせ内容",
       "submit": "送信",
       "successfully_sent": "お問い合わせは正常に送信されました。"

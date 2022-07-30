@@ -140,7 +140,7 @@
       "title": "Sayfa bulunamadı",
       "content": "Aradığınız sayfa bulunamadı.",
       "search": "Websitesinde ara...",
-      "continue_shopping": "Alışverişe devam etmek için buraya tıklayın"
+      "continue_shopping": ""
     }
   },
 
@@ -410,11 +410,11 @@
       "previous_product": "Önce",
       "next_product": "Sonra",
       "description": "Açıklama",
-      "specifications": "",
-      "documents": "",
-      "sku": "STK:",
-      "mpn": "",
-      "model": "",
+      "specifications": "Özellikler",
+      "documents": "Belgeler",
+      "sku": "STK",
+      "mpn": "Parça Numarası",
+      "model": "modeli",
       "share": "Bu ürünü paylaş",
       "reviews": "Yorumlar",
       "regular_price": "Normal fiyat",
@@ -529,10 +529,10 @@
   "contact": {
     "form": {
       "name": "İsiminiz",
-      "first_name": "",
-      "last_name": "",
+      "first_name": "İlk adı",
+      "last_name": "Soy isim",
       "email": "E-posta adresiniz",
-      "phone": "",
+      "phone": "Telefon numarası",
       "message": "Mesajınız",
       "submit": "Mesajı gönder",
       "successfully_sent": "Mesajınız başarıyla gönderildi."

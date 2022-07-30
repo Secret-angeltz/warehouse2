@@ -140,7 +140,7 @@
       "title": "Side ikke funnet",
       "content": "Siden du leter etter finnes ikke.",
       "search": "Søk i butikken...",
-      "continue_shopping": "Klikk her for å fortsette å handle."
+      "continue_shopping": ""
     }
   },
 
@@ -410,11 +410,11 @@
       "previous_product": "Forrige",
       "next_product": "Neste",
       "description": "Beskrivelse ",
-      "specifications": "",
-      "documents": "",
-      "sku": "SKU:",
-      "mpn": "",
-      "model": "",
+      "specifications": "Dokumenter",
+      "documents": "Dokumenter",
+      "sku": "SKU",
+      "mpn": "Delenummer",
+      "model": "Modell",
       "share": "Del dette produktet ",
       "reviews": "Reviews",
       "regular_price": "Ordinær pris",
@@ -529,10 +529,10 @@
   "contact": {
     "form": {
       "name": "Ditt navn ",
-      "first_name": "",
-      "last_name": "",
+      "first_name": "Fornavn",
+      "last_name": "Etternavn",
       "email": "Din e-post",
-      "phone": "",
+      "phone": "Telefonnummer",
       "message": "Din melding",
       "submit": "Send melding",
       "successfully_sent": "Meldingen din har blitt sendt."
