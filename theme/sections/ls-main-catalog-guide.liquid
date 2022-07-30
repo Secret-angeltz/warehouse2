@@ -30,7 +30,7 @@
         {%- if page.content != blank -%}
           <div class="page__content expandable-content" aria-expanded="false">
             <div class="rte text--pull">
-              {{ page.content }}
+              {{ page.content | replace: '<img ', '<img loading="lazy" ' | replace: '<iframe ', '<iframe loading="lazy" ' }}
             </div>
             <button class="expandable-content__toggle">
               <span class="expandable-content__toggle-icon"></span>

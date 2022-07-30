@@ -383,7 +383,7 @@
 
                         <div class="collection__description {% if allow_collapse_description %}expandable-content{% endif %}" aria-expanded="false">
                           <div class="rte">
-                            {{ collection.description }}
+                            {{ collection.description | replace: '<img ', '<img loading="lazy" ' | replace: '<iframe ', '<iframe loading="lazy" ' }}
                           </div>
 
                           {%- if allow_collapse_description -%}
