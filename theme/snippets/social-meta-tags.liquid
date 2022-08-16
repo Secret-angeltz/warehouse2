@@ -92,9 +92,19 @@ More information:
     <meta name="twitter:image" content="https:{{ article.image | img_url: '600x600', crop: 'center' }}">
   {%- endif -%}
 {%- elsif request.page_type == 'collection' -%}
+  {%- assign thumbnail = collection.metafields.marketing.thumbnail | first -%}
+  {%- assign thumbnail_default = collection.products.first.featured_media | img_url: '600x600', crop: 'center' | prepend: 'https:' -%}
   <meta name="twitter:title" content="{{ collection.title }}">
   <meta name="twitter:description" content="{{ collection.description | strip_html | truncatewords: 140, '' | escape }}">
-  <meta name="twitter:image" content="https:{{ collection.image | default: collection.products.first.featured_image | img_url: '600x600', crop: 'center' }}">
+  <meta name="twitter:image" content="{{ thumbnail.cloudinary_src | append: 'w_402,h_402,c_fill' | default: thumbnail_default }}">
+{%- elsif request.page_type == 'page' -%}
+  {%- assign thumbnail = page.metafields.marketing.thumbnail | first -%}
+  <meta name="twitter:title" content="{{ page.title }}">
+  <meta name="twitter:description" content="{{ page.content | strip_html | truncatewords: 140, '' | escape }}">
+
+  {%- unless thumbnail == blank -%}
+    <meta name="twitter:image" content="{{ thumbnail.cloudinary_src | append: 'w_402,h_402,c_fill' }}">
+  {%- endunless -%}
 {%- else -%}
   <meta name="twitter:title" content="{{ page_title | escape }}">
   <meta name="twitter:description" content="{{ page_description | default: page_title | escape }}">
