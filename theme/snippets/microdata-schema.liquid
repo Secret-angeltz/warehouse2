@@ -64,7 +64,6 @@ or change the format of some info
     {%- unless product.metafields.erp.model == blank %}
       "model": {{ product.metafields.erp.model | json }},
     {%- endunless %}
-    "url": "{{ product.url }}",
     "sku": {{ product.selected_or_first_available_variant.sku | json }},
     "image": {
       "@type": "ImageObject",
@@ -79,8 +78,9 @@ or change the format of some info
         "@type": "QuantitativeValue",
         "value": {{ product.selected_or_first_available_variant.weight | weight_with_unit | remove: product.selected_or_first_available_variant.weight_unit | strip | json }},
         "unitText": {{ product.selected_or_first_available_variant.weight_unit | json }}
-      }      
+      },
     {%- endif -%}
+    "url": "{{ product.url }}"
   {%- endcapture -%}
 {%- elsif request.page_type == 'article' -%}
   {%- capture main_entity_microdata -%}
