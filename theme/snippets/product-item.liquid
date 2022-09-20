@@ -43,6 +43,8 @@
   {%- endif -%}
 
   {%- assign filtered_variant = '' -%}
+  {%- assign vendor_handle = product.vendor | handleize -%}
+  {%- assign vendor_logo = shop.metafields.vendors.logo[vendor_handle] | first -%}
 
   {%- if product.media.size > 0 -%}
     {%- assign primary_media = product.featured_media -%}
@@ -66,9 +68,20 @@
         </noscript>
       </div>
     </a>
+  {%- elsif vendor_logo != blank -%}
+    <a href="{{ product.url }}" class="product-item__image-wrapper">
+      <div class="aspect-ratio aspect-ratio--background {% if settings.product_image_size != 'natural' %}aspect-ratio--{{ settings.product_image_size }}{% endif %}" style="padding-bottom: {{ 2.0 | divided_by: 3 | times: 100 }}%">
+        {%- liquid
+          assign logo_small = vendor_logo.cloudinary_src | append: 'ar_3:2,c_fill,w_194'
+          assign logo_medium = vendor_logo.cloudinary_src | append: 'ar_3:2,c_fill,w_344'
+          assign logo_large = vendor_logo.cloudinary_src | append: 'ar_3:2,c_fill,w_516'
+        -%}        
+        <img class="product-item__primary-image lazyload image--fade-in image--placeholder" data-src="{{ logo_small }}" data-srcset="{{ logo_small }} 194w, {{ logo_medium }} 344w, {{ logo_large }} 516w" data-sizes="auto" alt="{{ vendor_logo.alt | escape }}">
+      </div>
+    </a>    
   {%- else -%}
     <a href="{{ product.url }}" class="product-item__image-wrapper">
-      <div class="aspect-ratio" style="padding-bottom: {{ 2.0 | divided_by: 3 | times: 100 }}%">
+      <div class="aspect-ratio {% if settings.product_image_size != 'natural' %}aspect-ratio--{{ settings.product_image_size }}{% endif %}" style="padding-bottom: {{ 2.0 | divided_by: 3 | times: 100 }}%">
         {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
       </div>
     </a>
