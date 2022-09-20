@@ -226,7 +226,7 @@
       "choose_options": "Seçenek seçin",
       "sold_out": "Tükendi",
       "in_stock": "Stokta",
-      "oversell_stock": "Yakında yeniden stokta",
+      "oversell_stock": "Müsaitlik için arayın veya sohbet edin",
       "discount_html": "{{savings}} indirim",
       "low_stock_with_quantity_count": {
         "one": "Yalnızca {{count}} adet kaldı",
@@ -448,7 +448,7 @@
       "inventory": "Envanter",
       "quantity": "Adet",
       "in_stock": "Stokta",
-      "oversell_stock": "Yakında stokta",
+      "oversell_stock": "Müsaitlik için arayın veya sohbet edin",
       "incoming_stock": "Yakında stokta",
       "low_stock_with_quantity_count": {
         "one": "Yalnızca {{count}} adet kaldı",

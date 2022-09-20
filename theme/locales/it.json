@@ -226,7 +226,7 @@
       "choose_options": "Scegli le opzioni",
       "sold_out": "Esaurito",
       "in_stock": "In stock",
-      "oversell_stock": "Disponibile a breve",
+      "oversell_stock": "Chiama o chatta per disponibilità",
       "discount_html": "Risparmi {{savings}}",
       "low_stock_with_quantity_count": {
         "one": "Ne rimane solo {{count}}",
@@ -448,7 +448,7 @@
       "inventory": "Stock",
       "quantity": "Quantità",
       "in_stock": "In stock",
-      "oversell_stock": "In arrivo a breve",
+      "oversell_stock": "Chiama o chatta per disponibilità",
       "incoming_stock": "In arrivo il {{ next_incoming_date }}",
       "low_stock_with_quantity_count": {
         "one": "Ne rimane solo {{count}}",

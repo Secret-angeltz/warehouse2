@@ -103,7 +103,7 @@
         ,"inventories": {
           {%- for variant in product.variants -%}
             {%- if variant.available -%}
-              {%- if variant.inventory_management and variant.inventory_policy == 'deny' and variant_selector_block.settings.low_inventory_threshold > 0 -%}
+              {%- if variant.inventory_management and variant.inventory_quantity > 0 -%}
                 {%- if variant.inventory_quantity <= variant_selector_block.settings.low_inventory_threshold -%}
                   {%- capture inventory_message -%}{{ 'product.form.low_stock_with_quantity_count' | t: count: variant.inventory_quantity }}{%- endcapture -%}
                 {%- else -%}

@@ -226,7 +226,7 @@
       "choose_options": "Choose options",
       "sold_out": "Sold out",
       "in_stock": "In stock",
-      "oversell_stock": "Re-stocking soon",
+      "oversell_stock": "Call or Chat for availability",
       "discount_html": "Save {{savings}}",
       "low_stock_with_quantity_count": {
         "one": "Only {{count}} unit left",
@@ -448,7 +448,7 @@
       "inventory": "Stock",
       "quantity": "Quantity",
       "in_stock": "In stock",
-      "oversell_stock": "Re-stocking soon",
+      "oversell_stock": "Call or Chat for availability",
       "incoming_stock": "Re-stocking on {{ next_incoming_date }}",
       "low_stock_with_quantity_count": {
         "one": "Only {{count}} unit left",

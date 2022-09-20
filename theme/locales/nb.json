@@ -226,7 +226,7 @@
       "choose_options": "Velg alternativer",
       "sold_out": "Utsolgt",
       "in_stock": "På lager",
-      "oversell_stock": "Snart på lager",
+      "oversell_stock": "Ring eller chat for tilgjengelighet",
       "discount_html": "Spar {{savings}}",
       "low_stock_with_quantity_count": {
         "one": "Bare {{count}} enhet igjen",
@@ -448,7 +448,7 @@
       "inventory": "Lagerbeholdning ",
       "quantity": "Antall",
       "in_stock": "På lager ",
-      "oversell_stock": "Snart på lager",
+      "oversell_stock": "Ring eller chat for tilgjengelighet",
       "incoming_stock": "Snart på lager",
       "low_stock_with_quantity_count": {
         "one": "Bare {{count}} enhet igjen",

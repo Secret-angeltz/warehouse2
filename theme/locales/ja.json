@@ -226,7 +226,7 @@
       "choose_options": "オプションを選択",
       "sold_out": "完売",
       "in_stock": "在庫あり",
-      "oversell_stock": "近々再入荷予定（購入可能）",
+      "oversell_stock": "空き状況については、電話またはチャットでお問い合わせください",
       "discount_html": "{{savings}}セーブ",
       "low_stock_with_quantity_count": {
         "one": "残り{{count}}個のみ",
@@ -448,7 +448,7 @@
       "inventory": "在庫",
       "quantity": "量",
       "in_stock": "在庫あり",
-      "oversell_stock": "近々再入荷予定（購入可能）",
+      "oversell_stock": "空き状況については、電話またはチャットでお問い合わせください",
       "incoming_stock": "{{ next_incoming_date }}再入荷予定",
       "low_stock_with_quantity_count": {
         "one": "残り{{count}}個",

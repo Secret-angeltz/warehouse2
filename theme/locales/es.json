@@ -226,7 +226,7 @@
       "choose_options": "Escoger opción",
       "sold_out": "Agotado",
       "in_stock": "Disponible",
-      "oversell_stock": "Pronto en stock",
+      "oversell_stock": "Llama o chatea para disponibilidad",
       "discount_html": "Ahorrar {{savings}}",
       "low_stock_with_quantity_count": {
         "one": "Solo queda {{count}} unidad",
@@ -448,7 +448,7 @@
       "inventory": "Stock",
       "quantity": "Cantidad",
       "in_stock": "Disponible",
-      "oversell_stock": "Pronto en stock",
+      "oversell_stock": "Llama o chatea para disponibilidad",
       "incoming_stock": "Reaprovisionamiento en {{ next_incoming_date }}",
       "low_stock_with_quantity_count": {
         "one": "Solo queda {{count}} unidad",

@@ -226,7 +226,7 @@
       "choose_options": "Choisir options",
       "sold_out": "Rupture",
       "in_stock": "En stock",
-      "oversell_stock": "En ré-approvisionnement",
+      "oversell_stock": "Appelez ou discutez pour connaître la disponibilité",
       "incoming_stock": "Re-stockage le {{ next_incoming_date }}",
       "discount_html": "Economisez {{savings}}",
       "low_stock_with_quantity_count": {
@@ -450,7 +450,7 @@
       "inventory": "Stock",
       "quantity": "Quantité",
       "in_stock": "En stock",
-      "oversell_stock": "En ré-approvisionnement",
+      "oversell_stock": "Appelez ou discutez pour connaître la disponibilité",
       "low_stock_with_quantity_count": {
         "one": "Plus que {{count}} en stock",
         "other": "Plus que {{count}} en stock"
