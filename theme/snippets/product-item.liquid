@@ -70,7 +70,7 @@
     </a>
   {%- elsif vendor_logo != blank -%}
     <a href="{{ product.url }}" class="product-item__image-wrapper">
-      <div class="aspect-ratio aspect-ratio--background {% if settings.product_image_size != 'natural' %}aspect-ratio--{{ settings.product_image_size }}{% endif %}" style="padding-bottom: {{ 2.0 | divided_by: 3 | times: 100 }}%">
+      <div class="aspect-ratio {% if settings.product_image_size != 'natural' %}aspect-ratio--{{ settings.product_image_size }}{% endif %}" style="padding-bottom: {{ 2.0 | divided_by: 3 | times: 100 }}%">
         {%- liquid
           assign logo_small = vendor_logo.cloudinary_src | append: 'ar_3:2,c_fill,w_194'
           assign logo_medium = vendor_logo.cloudinary_src | append: 'ar_3:2,c_fill,w_344'
