@@ -9178,7 +9178,8 @@ shopify-payment-terms {
 
 .price {
   font-size: calc(var(--base-text-font-size) - (var(--default-text-font-size) - 24px));
-  color: var(--accent-color);
+  // color: var(--accent-color);
+  color: var(--product-on-sale-accent); // LS theme change
 }
 
 .price--highlight {
