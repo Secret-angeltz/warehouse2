@@ -238,37 +238,70 @@
 
       <div class="product-form__info-content">
         {%- if selected_variant.available -%}
-          {%- if selected_variant.inventory_management and selected_variant.inventory_quantity > 0 -%}
-            {%- comment -%}Product inventory is managed ("Track quantity" is checked) and available quantity is > 0.{%- endcomment -%}
-            {%- if selected_variant.inventory_quantity < block.settings.low_inventory_threshold -%}
-              {%- comment -%}Available quantity is < low inventory threshold (Only X units left message).{%- endcomment -%}
-              <span class="product-form__inventory inventory inventory--low">{{ 'product.form.low_stock_with_quantity_count' | t: count: selected_variant.inventory_quantity }}</span>
-            {%- else -%}
-              {%- comment -%}Available quantity is >= low inventory threshold (In Stock w/available quantity message).{%- endcomment -%}
-              <span class="product-form__inventory inventory inventory--high">{{ 'product.form.in_stock_with_quantity_count' | t: count: selected_variant.inventory_quantity }}</span>
-            {%- endif -%}
-          {%- else -%}
-            {%- comment -%}Product inventory is not managed or avilable quantity is <= 0.{%- endcomment -%}
-            {%- if selected_variant.inventory_policy == 'continue' and selected_variant.inventory_quantity <= 0 and selected_variant.requires_shipping -%}
-              {%- if selected_variant.incoming -%}
-                {%- capture next_incoming_date -%}{{ selected_variant.next_incoming_date | date: format: 'date' }}{%- endcapture -%}
-                {%- comment -%}Product inventory is managed. Available quantity is <= 0 and incoming stock quantity > 0.{%- endcomment -%}
-                <span class="product-form__inventory inventory inventory--high">{{ 'product.form.incoming_stock' | t: next_incoming_date: next_incoming_date }}</span>
+          {%- comment -%}
+          BEGIN product variant is able to be purchased (...not exactly sure what the condition(s) are)
+          {%- endcomment -%}
+          {%- if selected_variant.inventory_management -%}
+            {%- comment -%}
+            BEGIN managed inventory ("Track quantity" is checked)
+            {%- endcomment -%}
+            {%- if selected_variant.inventory_quantity > 0 -%}
+              {%- comment -%}
+              BEGIN managed inventory that is in stock ("Track quantity" is checked and total "Available" quantity is > 0)
+              {%- endcomment -%}
+              {%- if selected_variant.inventory_quantity < block.settings.low_inventory_threshold -%}
+                {%- comment -%}Available quantity is < low inventory threshold (Only X units left message).{%- endcomment -%}
+                <span class="product-form__inventory inventory inventory--low">{{ 'product.form.low_stock_with_quantity_count' | t: count: selected_variant.inventory_quantity }}</span>
               {%- else -%}
-                {%- comment -%}Product inventory is managed. Available quantity is <= 0 and incoming stock quantity = 0.{%- endcomment -%}
-                <span class="product-form__inventory inventory inventory--high">{{ 'product.form.oversell_stock' | t }}</span>
+                {%- comment -%}Available quantity is >= low inventory threshold (In Stock w/available quantity message).{%- endcomment -%}
+                <span class="product-form__inventory inventory inventory--high">{{ 'product.form.in_stock_with_quantity_count' | t: count: selected_variant.inventory_quantity }}</span>
               {%- endif -%}
+              {%- comment -%}
+              END managed inventory that is in stock
+              {%- endcomment -%}
             {%- else -%}
-              {%- comment -%}Product inventory is NOT managed.{%- endcomment -%}
-              <span class="product-form__inventory inventory inventory--high">{{ 'product.form.in_stock' | t }}</span>
+              {%- comment -%}
+              BEGIN managed inventory that is out of stock ("Track quantity" is checked and total "Available" quantity is <= 0)
+              {%- endcomment -%}
+              {%- if selected_variant.inventory_policy == 'continue' -%}
+                {%- if selected_variant.incoming and selected_variant.requires_shipping -%}
+                  {%- capture next_incoming_date -%}{{ selected_variant.next_incoming_date | date: format: 'date' }}{%- endcapture -%}
+                  {%- comment -%}Product inventory is managed. Available quantity is <= 0 and incoming stock quantity > 0.{%- endcomment -%}
+                  <span class="product-form__inventory inventory inventory--high">{{ 'product.form.incoming_stock' | t: next_incoming_date: next_incoming_date }}</span>
+                {%- else -%}
+                  {%- comment -%}Product inventory is managed. Available quantity is <= 0 and incoming stock quantity = 0.{%- endcomment -%}
+                  <span class="product-form__inventory inventory inventory--high">{{ 'product.form.oversell_stock' | t }}</span>
+                {%- endif -%}
+              {%- else -%} {%- comment -%}selected_variant.inventory_policy == 'deny'{%- endcomment -%}
+                <span class="product-form__inventory inventory">{{ 'product.form.sold_out' | t }}</span>
+              {%- endif -%}
+              {%- comment -%}
+              END managed inventory that is out of stock
+              {%- endcomment -%}
             {%- endif -%}
+            {%- comment -%}
+            END managed inventory
+            {%- endcomment -%}
+          {%- else -%}
+            {%- comment -%}
+            BEGIN unmanaged inventory ("Track quantity" is unchecked)
+            {%- endcomment -%}
+            <span class="product-form__inventory inventory inventory--high">{{ 'product.form.in_stock' | t }}</span>
+            {%- comment -%}
+            END unmanaged inventory ("Track quantity" is unchecked)
+            {%- endcomment -%}
           {%- endif -%}
+          {%- comment -%}
+          END product variant is able to be purchased
+          {%- endcomment -%}
         {%- else -%}
           {%- comment -%}
-            Product is not available or product inventory is managed and available quantity <= 0
-            and inventory policy is "deny" ("Continue selling when out of stock" is unchecked in admin)
+          BEGIN product variant is not able to be purchased
           {%- endcomment -%}
           <span class="product-form__inventory inventory">{{ 'product.form.sold_out' | t }}</span>
+          {%- comment -%}
+          END product variant is not able to be purchased
+          {%- endcomment -%}
         {%- endif -%}
 
         {%- for tag in product.tags -%}

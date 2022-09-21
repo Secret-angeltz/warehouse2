@@ -103,23 +103,27 @@
         ,"inventories": {
           {%- for variant in product.variants -%}
             {%- if variant.available -%}
-              {%- if variant.inventory_management and variant.inventory_quantity > 0 -%}
-                {%- if variant.inventory_quantity <= variant_selector_block.settings.low_inventory_threshold -%}
-                  {%- capture inventory_message -%}{{ 'product.form.low_stock_with_quantity_count' | t: count: variant.inventory_quantity }}{%- endcapture -%}
-                {%- else -%}
-                  {%- capture inventory_message -%}{{ 'product.form.in_stock_with_quantity_count' | t: count: variant.inventory_quantity }}{%- endcapture -%}
-                {%- endif -%}
-              {%- else -%}
-                {%- if variant.inventory_policy == 'continue' and variant.inventory_quantity <= 0 and selected_variant.requires_shipping -%}
-                  {%- if variant.incoming -%}
-                    {%- capture next_incoming_date -%}{{ variant.next_incoming_date | date: format: 'date' }}{%- endcapture -%}
-                    {%- capture inventory_message -%}{{ 'product.form.incoming_stock' | t: next_incoming_date: next_incoming_date }}{%- endcapture -%}
+              {%- if variant.inventory_management -%}
+                {%- if variant.inventory_quantity > 0 -%}
+                  {%- if variant.inventory_quantity < variant_selector_block.settings.low_inventory_threshold -%}
+                    {%- capture inventory_message -%}{{ 'product.form.low_stock_with_quantity_count' | t: count: variant.inventory_quantity }}{%- endcapture -%}
                   {%- else -%}
-                    {%- capture inventory_message -%}{{ 'product.form.oversell_stock' | t }}{%- endcapture -%}
+                    {%- capture inventory_message -%}{{ 'product.form.in_stock_with_quantity_count' | t: count: variant.inventory_quantity }}{%- endcapture -%}
                   {%- endif -%}
-                {%- else %}
-                  {%- capture inventory_message -%}{{ 'product.form.in_stock' | t }}{%- endcapture -%}
+                {%- else -%}
+                  {%- if variant.inventory_policy == 'continue' -%}
+                    {%- if variant.incoming and selected_variant.requires_shipping -%}
+                      {%- capture next_incoming_date -%}{{ variant.next_incoming_date | date: format: 'date' }}{%- endcapture -%}
+                      {%- capture inventory_message -%}{{ 'product.form.incoming_stock' | t: next_incoming_date: next_incoming_date }}{%- endcapture -%}
+                    {%- else -%}
+                      {%- capture inventory_message -%}{{ 'product.form.oversell_stock' | t }}{%- endcapture -%}
+                    {%- endif -%}
+                  {%- else %}
+                    {%- capture inventory_message -%}{{ 'product.form.sold_out' | t }}{%- endcapture -%}
+                  {%- endif -%}
                 {%- endif -%}
+              {%- else %}
+                {%- capture inventory_message -%}{{ 'product.form.in_stock' | t }}{%- endcapture -%}
               {%- endif -%}
             {%- else -%}
               {%- capture inventory_message -%}{{ 'product.form.sold_out' | t }}{%- endcapture -%}
