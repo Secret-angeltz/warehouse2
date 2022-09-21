@@ -129,6 +129,15 @@
         })();
       </script>
     {%- endif -%}
+
+    {%- if request.page_type == 'product' -%}
+      <script async defer>
+        document.addEventListener('liberty:analytics:loaded', function() {
+          ga('set', 'dimension1', {{ product.vendor | json }});
+          ga('set', 'dimension2', {{ product.vendor | json }});
+        });
+      </script>
+    {%- endif -%}
   </head>
 
   <body class="warehouse--v1 {% if settings.animation_image_zoom %}features--animate-zoom{% endif%} template-{{ request.page_type | handle }} {% if request.page_type contains '/' %}template-{{ request.page_type | split: '/' | last | handle }}{% endif %}" data-instant-intensity="viewport">
