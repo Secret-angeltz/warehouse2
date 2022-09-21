@@ -1,0 +1,12 @@
+{%- comment -%}
+  Custom Events sent to Google Analytics
+{%- endcomment -%}
+
+{%- if request.page_type == 'product' -%}
+  <script>
+    document.addEventListener('liberty:analytics:loaded', function() {
+      ga('set', 'dimension1', {{ product.vendor | json }});
+      ga('set', 'dimension2', {{ product.vendor | json }});
+    });
+  </script>
+{%- endif -%}
