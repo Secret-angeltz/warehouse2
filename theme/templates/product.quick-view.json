@@ -24,7 +24,9 @@
         "buy_buttons": {"type": "buy_buttons", "settings": {}}
       },
       "block_order": ["product_meta", "variant_selector", "buy_buttons"],
-      "settings": {}
+      "settings": {
+        "enable_image_placeholder": true
+      }
     }
   },
   "order": ["main"]
