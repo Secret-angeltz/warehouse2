@@ -45,9 +45,16 @@
 
       <div class="product-block-list product-block-list--{{ section.settings.image_size }}">
         <div class="product-block-list__wrapper">
+          {%- assign vendor_handle = product.vendor | handleize -%}
+          {%- assign placeholder = shop.metafields.vendors.logo[vendor_handle] | first -%}
+
           {%- if product.media.size > 0 -%}
             <div class="product-block-list__item product-block-list__item--gallery">
               {% render 'product-gallery' %}
+            </div>
+          {%- elsif section.settings.enable_image_placeholder and placeholder != blank -%}
+            <div class="product-block-list__item product-block-list__item--placeholder">
+              {% render 'product-placeholder', placeholder: placeholder %}
             </div>
           {%- endif -%}
 
@@ -607,7 +614,14 @@
   {%- else -%}
     {%- comment -%}We display the quick view within the product template so we can re-use the same settings{%- endcomment -%}
     <div class="featured-product">
-      {%- render 'product-gallery' -%}
+      {%- assign vendor_handle = product.vendor | handleize -%}
+      {%- assign placeholder = shop.metafields.vendors.logo[vendor_handle] | first -%}
+
+      {%- if product.media.size > 0 -%}
+        {% render 'product-gallery' %}
+      {%- elsif section.settings.enable_image_placeholder -%}
+        {% render 'product-placeholder', placeholder: placeholder %}
+      {%- endif -%}
       {%- render 'product-info' -%}
     </div>
   {%- endif -%}
@@ -1142,6 +1156,12 @@
       "id": "enable_image_zoom",
       "label": "Enable image zoom",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_image_placeholder",
+      "label": "Enable image placeholder",
+      "default": false
     },
     {
       "type": "select",

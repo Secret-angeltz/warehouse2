@@ -1,0 +1,19 @@
+{%- if placeholder != blank -%}
+  <div class="card">
+    <div class="card__section card__section--tight">
+      <div style="max-width: {{ placeholder.width }}px">
+        <div class="aspect-ratio" style="padding-bottom: {{ 2.0 | divided_by: 3 | times: 100 }}%">
+          {%- liquid
+            assign logo_small = placeholder.cloudinary_src | append: 'ar_3:2,c_fill,w_422'
+            assign logo_medium = placeholder.cloudinary_src | append: 'ar_3:2,c_fill,w_550'
+            assign logo_large = placeholder.cloudinary_src | append: 'ar_3:2,c_fill,w_826'
+          -%}
+          <img class="product-gallery__vendor-logo lazyload image--fade-in" data-src="{{ logo_small }}" data-srcset="{{ logo_small }} 422w, {{ logo_medium }} 550w, {{ logo_large }} 826w" data-sizes="auto" alt="{{ placeholder.alt | escape }}">
+          <noscript>
+            <img src="{{ logo_large }}" width="{{ logo_large.width }}" height="{{ logo_large.height }}" alt="{{ placeholder.alt | escape }}">
+          </noscript>
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
